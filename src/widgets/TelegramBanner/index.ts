@@ -1,0 +1,1 @@
+export { TelegramBanner } from './TelegramBanner';

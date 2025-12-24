@@ -1,0 +1,1 @@
+export { BestOfMonth } from './BestOfMonth';
