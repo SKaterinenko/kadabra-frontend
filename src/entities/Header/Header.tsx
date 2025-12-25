@@ -24,7 +24,7 @@ export const Header = () => {
 
                 </div>
                 <div className="flex mt-[30px] justify-between w-[1058px]">
-                    <Link href="/" className="text-xl">Лучшее за месяц</Link>
+                    <Link href="/best-of-month" className="text-xl">Лучшее за месяц</Link>
                     <span className="h-6 w-px bg-gray-300" />
                     <Link href="/" className="text-xl">Электроника</Link>
                     <span className="h-6 w-px bg-gray-300" />

@@ -1,3 +1,4 @@
+import { Providers } from './providers';
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from 'next/font/local';
@@ -23,11 +24,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ru">
       <body
         className={`${helvetica.variable} ${helveticaBold.variable} antialiased`}
       >
-        {children}
+      <Providers>
+          {children}
+      </Providers>
       </body>
     </html>
   );

@@ -20,7 +20,6 @@ export const Home = () => {
                     <TelegramBanner/>
                     <Banner path="/images/banner3.jpg"/>
                     <Promotion/>
-
                 </div>
             </div>
             <Footer/>

@@ -1,9 +1,9 @@
 import { H2 } from "@/src/shared/ui/H2"
-import {ProductCart} from "@/src/shared/ui/ProductCart";
-import {getCategoriesServer} from "@/src/shared/api/categories";
+import {ProductCard} from "@/src/shared/ui/ProductCard";
+import {getCategories} from "@/src/shared/api/server/categories";
 
 export const Categories = async () => {
-    const categories = await getCategoriesServer()
+    const categories = await getCategories()
 
     return (
         <section>
@@ -13,7 +13,7 @@ export const Categories = async () => {
             </div>
             <div className="flex gap-6">
                 {categories?.slice(0, 5)?.map((category) => (
-                    <ProductCart key={category?.id} data={category} subTitle="Более 200 товаров"/>
+                    <ProductCard key={category?.id} data={category} subTitle="Более 200 товаров"/>
                 ))}
             </div>
         </section>

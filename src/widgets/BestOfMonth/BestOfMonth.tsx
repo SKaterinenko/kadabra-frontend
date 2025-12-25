@@ -1,9 +1,9 @@
 import {Slider} from "@/src/entities/Slider";
-import {getProductsServer} from "@/src/shared/api/products";
+import {getProducts} from "@/src/shared/api/server/products";
 import {H2} from "@/src/shared/ui/H2";
 
 export const BestOfMonth = async () =>{
-const products  = await getProductsServer()
+const products  = await getProducts()
 
     return (
         <section>

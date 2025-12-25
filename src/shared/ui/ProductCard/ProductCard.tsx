@@ -9,10 +9,10 @@ interface Props {
     subTitle?: string;
 }
 
-export const ProductCart:FC<Props> = ({data, subTitle}) => {
+export const ProductCard:FC<Props> = ({data, subTitle}) => {
     if (!data) { return }
     return (
-        <div className="shadow rounded-[3px]">
+        <div className="shadow rounded-[3px] max-h-[370px]">
             <div>
                 <Image src="/images/product1.png" width={300} height={222} alt="Product"/>
             </div>

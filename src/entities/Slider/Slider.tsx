@@ -4,7 +4,7 @@ import { EmblaOptionsType } from 'embla-carousel';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useCallback, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { ProductCart } from "@/src/shared/ui/ProductCart";
+import { ProductCard } from "@/src/shared/ui/ProductCard";
 import { IProduct } from "@/src/shared/api/types";
 
 type Props = {
@@ -63,7 +63,7 @@ export const Slider = ({ data, slides = 6 }: Props) => {
                 >
                     {data.map((slide) => (
                         <div key={slide.id}>
-                            <ProductCart data={slide} />
+                            <ProductCard data={slide} />
                         </div>
                     ))}
                 </div>
