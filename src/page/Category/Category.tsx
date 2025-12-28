@@ -6,18 +6,22 @@ import {Footer} from "@/src/entities/Footer";
 import {H1} from "@/src/shared/ui/H1";
 import {Filters} from "@/src/widgets/Filters";
 import {ProductsGrid} from "@/src/widgets/ProductsGrid";
-import {useState} from "react";
+import {FC, useState} from "react";
 import {useGetCategories} from "@/src/shared/api/client/categoriesClient";
 import {useGetProducts, useGetProductsByIds} from "@/src/shared/api/client/productsClient";
+import {useGetProductsTypeByCategory} from "@/src/shared/api/client/productsTypeClient";
 
-export const Category =  () => {
+interface Props {
+    name: string;
+    id?: string;
+}
+
+export const Category:FC<Props> =  ({name, id}) => {
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
-    const { data: categories } = useGetCategories();
+    const { data: categories } = useGetCategories(id);
     const { data: products } = useGetProducts();
-
+    const {data: productsType} = useGetProductsTypeByCategory(id)
     const {data: productsByIds} = useGetProductsByIds(selectedIds)
-    console.log(productsByIds, "BYIDS")
-    console.log(products, "PRODUCT")
 
     return (
         <main>
@@ -25,9 +29,9 @@ export const Category =  () => {
             <Banner path="/images/banner4.jpg"/>
             <div className="container">
                 <div className="mt-[90px] flex flex-col gap-[50px]">
-                    <H1>Лучшее за месяц</H1>
+                    <H1>{name}</H1>
                     <div className="grid grid-cols-[15%_85%] gap-5">
-                        <Filters categories={categories} selectedIds={selectedIds} setSelectedIds={setSelectedIds}  />
+                        <Filters categories={categories} productsType={productsType} selectedIds={selectedIds} setSelectedIds={setSelectedIds}  />
                         <ProductsGrid data={productsByIds ? productsByIds : products}/>
                     </div>
                 </div>

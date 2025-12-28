@@ -15,3 +15,23 @@ export interface ICategory {
     created_at: string
     updated_at: string
 }
+
+export interface ISubCategory {
+    id: string
+    name: string
+    category_id: string
+    created_at: string
+    updated_at: string
+}
+
+export interface IProductsType {
+    id: string
+    name: string
+    sub_category_id: string
+    created_at: string
+    updated_at: string
+}
+
+export interface IProductsTypeByCategory extends ISubCategory  {
+    products_type: IProductsType[]
+}

@@ -1,9 +1,15 @@
+"use client"
+
 import Image from "next/image";
 import {Input} from "@/src/shared/ui/Input/Input";
 import Link from "next/link";
+import React from "react";
+import {useGetCategories} from "@/src/shared/api/client/categoriesClient";
 
 
-export const Header = () => {
+export const Header =  () => {
+    const {data: categories} = useGetCategories()
+
     return (
         <header>
             <div className="bg-amber-300 text-center">
@@ -13,7 +19,9 @@ export const Header = () => {
 
                 <div className="flex justify-between">
                     <div className="flex items-center justify-between gap-[123px]">
-                        <Image src="/images/logo.svg" width={145} height={30} alt="Logo"/>
+                        <Link href="/">
+                            <Image src="/images/logo.svg" width={145} height={30} alt="Logo"/>
+                        </Link>
                         <Input placeholder="Поиск товаров:" width={790} search/>
                     </div>
                     <div className="flex gap-8 items-center">
@@ -25,16 +33,11 @@ export const Header = () => {
                 </div>
                 <div className="flex mt-[30px] justify-between w-[1058px]">
                     <Link href="/best-of-month" className="text-xl">Лучшее за месяц</Link>
-                    <span className="h-6 w-px bg-gray-300" />
-                    <Link href="/" className="text-xl">Электроника</Link>
-                    <span className="h-6 w-px bg-gray-300" />
-                    <Link href="/" className="text-xl">Одежда и аксессуары</Link>
-                    <span className="h-6 w-px bg-gray-300" />
-                    <Link href="/" className="text-xl">Здоровье</Link>
-                    <span className="h-6 w-px bg-gray-300" />
-                    <Link href="/" className="text-xl">Косметика</Link>
-                    <span className="h-6 w-px bg-gray-300" />
-                    <Link href="/" className="text-xl">Дом</Link>
+                    {categories && categories?.slice(0, 5)?.map((item) =>
+                        <React.Fragment key={item.id}>
+                        <span className="h-6 w-px bg-gray-300" />
+                        <Link href={`/category/${item?.id}`} className="text-xl">{item?.name}</Link>
+                    </React.Fragment>)}
                 </div>
             </div>
         </header>
