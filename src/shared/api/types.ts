@@ -1,6 +1,7 @@
 export interface IProduct {
     id: string
     name: string
+    slug: string
     sub_category_id: string
     manufacturer_id: string
     short_description: string
@@ -12,6 +13,7 @@ export interface IProduct {
 export interface ICategory {
     id: string
     name: string
+    slug: string
     created_at: string
     updated_at: string
 }
@@ -19,6 +21,7 @@ export interface ICategory {
 export interface ISubCategory {
     id: string
     name: string
+    slug: string
     category_id: string
     created_at: string
     updated_at: string

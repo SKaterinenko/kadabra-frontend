@@ -3,6 +3,7 @@
 import {ICategory, IProductsTypeByCategory} from "@/src/shared/api/types";
 import {Dispatch, FC, SetStateAction} from "react";
 import {Checkbox} from "@/src/shared/ui/Checkbox";
+import {Skeleton} from "@/src/shared/ui/Skeleton/Skeleton";
 
 interface Props {
     categories?: ICategory[]
@@ -41,6 +42,11 @@ export const Filters:FC<Props> = ({categories, selectedIds, setSelectedIds, prod
                         </label>
                     </div>
                 ))}
+                {!categories && !productsType &&
+                    Array.from({ length: 5 }).map((_, i) => (
+                        <Skeleton key={i} className="h-[25px] w-[180px]" />
+                    ))}
+
                 {productsType && productsType?.map((item) =>
                     <div key={item?.id}>
                         <p>{item?.name}</p>

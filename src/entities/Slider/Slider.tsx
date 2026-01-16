@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { ProductCard } from "@/src/shared/ui/ProductCard";
 import { IProduct } from "@/src/shared/api/types";
+import {Skeleton} from "@/src/shared/ui/Skeleton/Skeleton";
 
 type Props = {
     data: IProduct[]
@@ -61,11 +62,16 @@ export const Slider = ({ data, slides = 6 }: Props) => {
                         gridAutoColumns: `calc((100% - ${(slides - 1) * 16}px) / ${slides})`
                     }}
                 >
-                    {data.map((slide) => (
+                    {data && data.map((slide) => (
                         <div key={slide.id}>
                             <ProductCard data={slide} />
                         </div>
                     ))}
+                    {!!data &&
+                        Array.from({ length: 10 }).map((_, i) => (
+                            <Skeleton key={i} className="h-[250px] w-[200px]" />
+                        ))}
+
                 </div>
             </div>
 

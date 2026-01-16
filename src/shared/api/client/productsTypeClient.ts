@@ -1,11 +1,19 @@
 
 import {useQuery} from "@tanstack/react-query";
-import {getProductsTypeByCategory} from "@/src/shared/api/server/productsType";
+import {getProductsTypeByCategoryId, getProductsTypeByCategorySlug} from "@/src/shared/api/server/productsType";
 
-export function useGetProductsTypeByCategory(id?: string) {
+export function useGetProductsTypeByCategoryId(id?: string) {
     return useQuery({
-        queryKey: ['products', id],
-        queryFn: () => getProductsTypeByCategory(id),
+        queryKey: ['products-type', id],
+        queryFn: () => getProductsTypeByCategoryId(id),
         enabled: !!id
+    });
+}
+
+export function useGetProductsTypeByCategorySlug(slug?: string) {
+    return useQuery({
+        queryKey: ['products-type', slug],
+        queryFn: () => getProductsTypeByCategorySlug(slug),
+        enabled: !!slug
     });
 }

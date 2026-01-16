@@ -17,3 +17,11 @@ export async function getCategoryById(id: string): Promise<ICategory> {
     }
     return res.json();
 }
+
+export async function getCategoryBySlug(slug: string): Promise<ICategory> {
+    const res = await fetch(`${API_URL}/categories/${slug}`);
+    if (!res.ok) {
+        throw new Error('Failed to fetch category');
+    }
+    return res.json();
+}

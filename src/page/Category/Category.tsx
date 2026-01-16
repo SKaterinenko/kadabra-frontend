@@ -9,18 +9,18 @@ import {ProductsGrid} from "@/src/widgets/ProductsGrid";
 import {FC, useState} from "react";
 import {useGetCategories} from "@/src/shared/api/client/categoriesClient";
 import {useGetProducts, useGetProductsByIds} from "@/src/shared/api/client/productsClient";
-import {useGetProductsTypeByCategory} from "@/src/shared/api/client/productsTypeClient";
+import {useGetProductsTypeByCategorySlug} from "@/src/shared/api/client/productsTypeClient";
 
 interface Props {
     name: string;
-    id?: string;
+    slug?: string;
 }
 
-export const Category:FC<Props> =  ({name, id}) => {
+export const Category:FC<Props> =  ({name, slug}) => {
     const [selectedIds, setSelectedIds] = useState<string[]>([]);
-    const { data: categories } = useGetCategories(id);
+    const { data: categories } = useGetCategories(slug);
     const { data: products } = useGetProducts();
-    const {data: productsType} = useGetProductsTypeByCategory(id)
+    const {data: productsType} = useGetProductsTypeByCategorySlug(slug)
     const {data: productsByIds} = useGetProductsByIds(selectedIds)
 
     return (

@@ -5,6 +5,7 @@ import {Input} from "@/src/shared/ui/Input/Input";
 import Link from "next/link";
 import React from "react";
 import {useGetCategories} from "@/src/shared/api/client/categoriesClient";
+import {Skeleton} from "@/src/shared/ui/Skeleton/Skeleton";
 
 
 export const Header =  () => {
@@ -36,8 +37,13 @@ export const Header =  () => {
                     {categories && categories?.slice(0, 5)?.map((item) =>
                         <React.Fragment key={item.id}>
                         <span className="h-6 w-px bg-gray-300" />
-                        <Link href={`/category/${item?.id}`} className="text-xl">{item?.name}</Link>
+                        <Link href={`/category/${item?.slug}`} className="text-xl">{item?.name}</Link>
                     </React.Fragment>)}
+                    {!categories && Array.from({ length: 5 }).map((_, i) =>
+                        <React.Fragment key={i}>
+                            <span className="h-6 w-px bg-gray-300" />
+                            <Skeleton key={i} className="h-[25px] w-[120px]" />
+                        </React.Fragment>)}
                 </div>
             </div>
         </header>
