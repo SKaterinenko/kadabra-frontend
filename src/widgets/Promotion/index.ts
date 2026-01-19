@@ -1,1 +1,1 @@
-export { Promotion } from './Promotion';
+export { PromotionView } from './PromotionView';

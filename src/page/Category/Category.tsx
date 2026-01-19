@@ -8,8 +8,12 @@ import {Filters} from "@/src/widgets/Filters";
 import {ProductsGrid} from "@/src/widgets/ProductsGrid";
 import {FC, useState} from "react";
 import {useGetCategories} from "@/src/shared/api/client/categoriesClient";
-import {useGetProducts, useGetProductsByIds} from "@/src/shared/api/client/productsClient";
+import {
+    useGetProducts,
+    useGetProductsByProductsTypeIds
+} from "@/src/shared/api/client/productsClient";
 import {useGetProductsTypeByCategorySlug} from "@/src/shared/api/client/productsTypeClient";
+import {PromotionClient} from "@/src/widgets/Promotion/PromotionClient";
 
 interface Props {
     name: string;
@@ -21,7 +25,7 @@ export const Category:FC<Props> =  ({name, slug}) => {
     const { data: categories } = useGetCategories(slug);
     const { data: products } = useGetProducts();
     const {data: productsType} = useGetProductsTypeByCategorySlug(slug)
-    const {data: productsByIds} = useGetProductsByIds(selectedIds)
+    const {data: productsByIds} = useGetProductsByProductsTypeIds(selectedIds)
 
     return (
         <main>
@@ -34,6 +38,8 @@ export const Category:FC<Props> =  ({name, slug}) => {
                         <Filters categories={categories} productsType={productsType} selectedIds={selectedIds} setSelectedIds={setSelectedIds}  />
                         <ProductsGrid data={productsByIds ? productsByIds : products}/>
                     </div>
+                    <Banner path="/images/banner5.jpg" />
+                    <PromotionClient/>
                 </div>
             </div>
             <Footer/>

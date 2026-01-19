@@ -9,7 +9,7 @@ import { IProduct } from "@/src/shared/api/types";
 import {Skeleton} from "@/src/shared/ui/Skeleton/Skeleton";
 
 type Props = {
-    data: IProduct[]
+    data?: IProduct[]
     slides?: number
 }
 
@@ -62,12 +62,12 @@ export const Slider = ({ data, slides = 6 }: Props) => {
                         gridAutoColumns: `calc((100% - ${(slides - 1) * 16}px) / ${slides})`
                     }}
                 >
-                    {data && data.map((slide) => (
+                    {!!data?.length && data.map((slide) => (
                         <div key={slide.id}>
                             <ProductCard data={slide} />
                         </div>
                     ))}
-                    {!!data &&
+                    {!data?.length &&
                         Array.from({ length: 10 }).map((_, i) => (
                             <Skeleton key={i} className="h-[250px] w-[200px]" />
                         ))}
