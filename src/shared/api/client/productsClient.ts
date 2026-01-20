@@ -1,6 +1,11 @@
 
 import {useQuery} from "@tanstack/react-query";
-import {getProducts, getProductsByCategoryIds, getProductsByProductsTypeIds} from "../server/products";
+import {
+    getProducts,
+    getProductsByCategoryIds,
+    getProductsByCategorySlug,
+    getProductsByProductsTypeIds
+} from "../server/products";
 
 
 export function useGetProducts() {
@@ -22,6 +27,13 @@ export function useGetProductsByProductsTypeIds(ids: string[]) {
     return useQuery({
         queryKey: ['products-by-products-type', 'by-ids', ids],
         queryFn: () => getProductsByProductsTypeIds(ids),
-        enabled: ids.length > 0,
     });
 }
+
+    export function useGetProductsByCategorySlug(slug?: string) {
+        return useQuery({
+            queryKey: ['products', slug],
+            queryFn: () => getProductsByCategorySlug(slug),
+            enabled: !!slug
+        });
+    }

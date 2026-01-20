@@ -4,8 +4,8 @@ import {BestOfMonth} from "@/src/widgets/BestOfMonth";
 import {LoginBanner} from "@/src/widgets/LoginBanner";
 import {Categories} from "@/src/widgets/Categories";
 import {TelegramBanner} from "@/src/widgets/TelegramBanner";
-import {PromotionView} from "@/src/widgets/Promotion";
 import {Footer} from "@/src/entities/Footer";
+import {PromotionServer} from "@/src/widgets/Promotion/PromotionServer";
 
 export const Home = () => {
     return (
@@ -19,7 +19,7 @@ export const Home = () => {
                     <Categories/>
                     <TelegramBanner/>
                     <Banner path="/images/banner3.jpg"/>
-                    <PromotionView/>
+                    <PromotionServer/>
                 </div>
             </div>
             <Footer/>

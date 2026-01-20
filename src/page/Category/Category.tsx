@@ -9,7 +9,7 @@ import {ProductsGrid} from "@/src/widgets/ProductsGrid";
 import {FC, useState} from "react";
 import {useGetCategories} from "@/src/shared/api/client/categoriesClient";
 import {
-    useGetProducts,
+    useGetProducts, useGetProductsByCategoryIds, useGetProductsByCategorySlug,
     useGetProductsByProductsTypeIds
 } from "@/src/shared/api/client/productsClient";
 import {useGetProductsTypeByCategorySlug} from "@/src/shared/api/client/productsTypeClient";
@@ -25,7 +25,12 @@ export const Category:FC<Props> =  ({name, slug}) => {
     const { data: categories } = useGetCategories(slug);
     const { data: products } = useGetProducts();
     const {data: productsType} = useGetProductsTypeByCategorySlug(slug)
+    const {data: productsByCategory} = useGetProductsByCategorySlug(slug)
     const {data: productsByIds} = useGetProductsByProductsTypeIds(selectedIds)
+    const {data: productsByCategoryIds} = useGetProductsByCategoryIds(selectedIds)
+
+    const productsData = slug ? (selectedIds.length > 0 ? productsByIds : productsByCategory)
+        : productsByCategoryIds ? productsByCategoryIds : products
 
     return (
         <main>
@@ -36,7 +41,7 @@ export const Category:FC<Props> =  ({name, slug}) => {
                     <H1>{name}</H1>
                     <div className="grid grid-cols-[15%_85%] gap-5">
                         <Filters categories={categories} productsType={productsType} selectedIds={selectedIds} setSelectedIds={setSelectedIds}  />
-                        <ProductsGrid data={productsByIds ? productsByIds : products}/>
+                        <ProductsGrid data={productsData}/>
                     </div>
                     <Banner path="/images/banner5.jpg" />
                     <PromotionClient/>

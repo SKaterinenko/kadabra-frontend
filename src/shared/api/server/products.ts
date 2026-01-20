@@ -10,7 +10,7 @@ export async function getProducts(): Promise<IProduct[]> {
 }
 
 export async function getProductsByCategoryIds(ids: string[]): Promise<IProduct[]> {
-    const res = await fetch(`${API_URL}/productsByIds`, {
+    const res = await fetch(`${API_URL}/products-by-category-ids`, {
         method: 'POST',
         body: JSON.stringify({ ids }),
     });
@@ -23,7 +23,7 @@ export async function getProductsByCategoryIds(ids: string[]): Promise<IProduct[
 }
 
 export async function getProductsByProductsTypeIds(ids: string[]): Promise<IProduct[]> {
-    const res = await fetch(`${API_URL}/productsByProductsTypeIds`, {
+    const res = await fetch(`${API_URL}/products-by-products-type-ids`, {
         method: 'POST',
         body: JSON.stringify({ ids }),
     });
@@ -32,5 +32,13 @@ export async function getProductsByProductsTypeIds(ids: string[]): Promise<IProd
         throw new Error('Failed to fetch products');
     }
 
+    return res.json();
+}
+
+export async function getProductsByCategorySlug(slug?: string): Promise<IProduct[]> {
+    const res = await fetch(`${API_URL}/products-by-category-slug/${slug}`);
+    if (!res.ok) {
+        throw new Error('Failed to fetch products type');
+    }
     return res.json();
 }
