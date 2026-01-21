@@ -3,7 +3,7 @@ import {useQuery} from "@tanstack/react-query";
 import {
     getProducts,
     getProductsByCategoryIds,
-    getProductsByCategorySlug,
+    getProductsByCategorySlug, getProductsByManufacturerId,
     getProductsByProductsTypeIds
 } from "../server/products";
 
@@ -15,7 +15,7 @@ export function useGetProducts() {
     });
 }
 
-export function useGetProductsByCategoryIds(ids: string[]) {
+export function useGetProductsByCategoryIds(ids: number[]) {
     return useQuery({
         queryKey: ['products-by-category-id', 'by-ids', ids],
         queryFn: () => getProductsByCategoryIds(ids),
@@ -23,17 +23,25 @@ export function useGetProductsByCategoryIds(ids: string[]) {
     });
 }
 
-export function useGetProductsByProductsTypeIds(ids: string[]) {
+export function useGetProductsByProductsTypeIds(ids: number[]) {
     return useQuery({
         queryKey: ['products-by-products-type', 'by-ids', ids],
         queryFn: () => getProductsByProductsTypeIds(ids),
     });
 }
 
-    export function useGetProductsByCategorySlug(slug?: string) {
-        return useQuery({
-            queryKey: ['products', slug],
-            queryFn: () => getProductsByCategorySlug(slug),
-            enabled: !!slug
-        });
-    }
+export function useGetProductsByCategorySlug(slug?: string) {
+    return useQuery({
+        queryKey: ['products', slug],
+        queryFn: () => getProductsByCategorySlug(slug),
+        enabled: !!slug
+    });
+}
+
+export function useGetProductsByManufacturerId(id?: number) {
+    return useQuery({
+        queryKey: ['products', id],
+        queryFn: () => getProductsByManufacturerId(id),
+        enabled: !!id
+    });
+}

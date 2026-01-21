@@ -2,7 +2,7 @@
 import {useQuery} from "@tanstack/react-query";
 import {getProductsTypeByCategoryId, getProductsTypeByCategorySlug} from "@/src/shared/api/server/productsType";
 
-export function useGetProductsTypeByCategoryId(id?: string) {
+export function useGetProductsTypeByCategoryId(id?: number) {
     return useQuery({
         queryKey: ['products-type', id],
         queryFn: () => getProductsTypeByCategoryId(id),

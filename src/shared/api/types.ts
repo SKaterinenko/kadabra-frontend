@@ -1,9 +1,9 @@
 export interface IProduct {
-    id: string
+    id: number
     name: string
     slug: string
-    sub_category_id: string
-    manufacturer_id: string
+    sub_category_id: number
+    manufacturer_id: number
     short_description: string
     description: string
     created_at: string
@@ -11,7 +11,7 @@ export interface IProduct {
 }
 
 export interface ICategory {
-    id: string
+    id: number
     name: string
     slug: string
     created_at: string
@@ -19,7 +19,7 @@ export interface ICategory {
 }
 
 export interface ISubCategory {
-    id: string
+    id: number
     name: string
     slug: string
     category_id: string
@@ -28,7 +28,7 @@ export interface ISubCategory {
 }
 
 export interface IProductsType {
-    id: string
+    id: number
     name: string
     sub_category_id: string
     created_at: string

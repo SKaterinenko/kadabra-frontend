@@ -1,15 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import {getCategories, getCategoryById} from "../server/categories";
 
-export function useGetCategories(id?: string) {
+export function useGetCategories(slug?: string) {
     return useQuery({
-        queryKey: ['categories', id],
+        queryKey: ['categories', slug],
         queryFn: getCategories,
-        enabled: !id,
+        enabled: !slug,
     });
 }
 
-export function useGetCategoryById(id: string) {
+export function useGetCategoryById(id: number) {
     return useQuery({
         queryKey: ['categories', id],
         queryFn: () => getCategoryById(id),

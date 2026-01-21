@@ -21,7 +21,7 @@ interface Props {
 }
 
 export const Category:FC<Props> =  ({name, slug}) => {
-    const [selectedIds, setSelectedIds] = useState<string[]>([]);
+    const [selectedIds, setSelectedIds] = useState<number[]>([]);
     const { data: categories } = useGetCategories(slug);
     const { data: products } = useGetProducts();
     const {data: productsType} = useGetProductsTypeByCategorySlug(slug)

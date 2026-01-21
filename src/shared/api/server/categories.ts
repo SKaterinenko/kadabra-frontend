@@ -10,7 +10,7 @@ export async function getCategories(): Promise<ICategory[]> {
     return res.json();
 }
 
-export async function getCategoryById(id: string): Promise<ICategory> {
+export async function getCategoryById(id: number): Promise<ICategory> {
     const res = await fetch(`${API_URL}/categories/${id}`);
     if (!res.ok) {
         throw new Error('Failed to fetch category');
