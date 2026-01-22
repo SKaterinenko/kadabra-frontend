@@ -6,14 +6,17 @@ import {
     getProductsByCategorySlug, getProductsByManufacturerId,
     getProductsByProductsTypeIds
 } from "../server/products";
+import {ProductsFilters} from "@/src/shared/api/types";
 
 
-export function useGetProducts() {
+export function useGetProducts(filters: ProductsFilters) {
     return useQuery({
-        queryKey: ['products'],
-        queryFn: getProducts,
+        queryKey: ['products', filters],
+        queryFn: () => getProducts(filters),
+        //keepPreviousData: true,
     });
 }
+
 
 export function useGetProductsByCategoryIds(ids: number[]) {
     return useQuery({

@@ -38,3 +38,19 @@ export interface IProductsType {
 export interface IProductsTypeByCategory extends ISubCategory  {
     products_type: IProductsType[]
 }
+
+export interface IManufacturer {
+    id: number
+    category_ids: number[]
+    name: string
+    slug: string
+    description: string
+    created_at: string
+    updated_at: string
+}
+
+export interface ProductsFilters {
+    categories?: number[];
+    types?: number[];
+    manufacturers?: number[];
+}

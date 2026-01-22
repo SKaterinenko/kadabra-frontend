@@ -9,45 +9,74 @@ import {ProductsGrid} from "@/src/widgets/ProductsGrid";
 import {FC, useState} from "react";
 import {useGetCategories} from "@/src/shared/api/client/categoriesClient";
 import {
-    useGetProducts, useGetProductsByCategoryIds, useGetProductsByCategorySlug,
-    useGetProductsByProductsTypeIds
+    useGetProducts
 } from "@/src/shared/api/client/productsClient";
 import {useGetProductsTypeByCategorySlug} from "@/src/shared/api/client/productsTypeClient";
 import {PromotionClient} from "@/src/widgets/Promotion/PromotionClient";
+import {useGetManufacturersByCategorySlug} from "@/src/shared/api/client/manufacturersClient";
+import {ICategory} from "@/src/shared/api/types";
 
 interface Props {
-    name: string;
-    slug?: string;
+    category: ICategory;
 }
 
-export const Category:FC<Props> =  ({name, slug}) => {
-    const [selectedIds, setSelectedIds] = useState<number[]>([]);
-    const { data: categories } = useGetCategories(slug);
-    const { data: products } = useGetProducts();
-    const {data: productsType} = useGetProductsTypeByCategorySlug(slug)
-    const {data: productsByCategory} = useGetProductsByCategorySlug(slug)
-    const {data: productsByIds} = useGetProductsByProductsTypeIds(selectedIds)
-    const {data: productsByCategoryIds} = useGetProductsByCategoryIds(selectedIds)
+interface FiltersState {
+    categories: number[];
+    types: number[];
+    manufacturers: number[];
+}
 
-    const productsData = slug ? (selectedIds.length > 0 ? productsByIds : productsByCategory)
-        : productsByCategoryIds ? productsByCategoryIds : products
+export const Category: FC<Props> = ({ category }) => {
+    const { id, slug, name } = category;
+
+    const [filters, setFilters] = useState<FiltersState>({
+        categories: [],
+        types: [],
+        manufacturers: [],
+    });
+
+    const effectiveCategories =
+        filters.categories.length > 0
+            ? filters.categories
+            : [id];
+
+    const { data: categories } = useGetCategories(slug);
+
+    const { data: products } = useGetProducts({
+        categories: effectiveCategories,
+        types: filters.types,
+        manufacturers: filters.manufacturers,
+    });
+
+    const { data: productsType } = useGetProductsTypeByCategorySlug(slug);
+    const { data: manufacturers } = useGetManufacturersByCategorySlug(slug);
 
     return (
         <main>
-            <Header/>
-            <Banner path="/images/banner4.jpg"/>
+            <Header />
+            <Banner path="/images/banner4.jpg" />
+
             <div className="container">
                 <div className="mt-[90px] flex flex-col gap-[50px]">
                     <H1>{name}</H1>
+
                     <div className="grid grid-cols-[15%_85%] gap-5">
-                        <Filters categories={categories} productsType={productsType} selectedIds={selectedIds} setSelectedIds={setSelectedIds}  />
-                        <ProductsGrid data={productsData}/>
+                        <Filters
+                            categories={categories}
+                            productsType={productsType}
+                            manufacturers={manufacturers}
+                            filters={filters}
+                            setFilters={setFilters}
+                        />
+                        <ProductsGrid data={products} />
                     </div>
+
                     <Banner path="/images/banner5.jpg" />
-                    <PromotionClient/>
+                    <PromotionClient />
                 </div>
             </div>
-            <Footer/>
+
+            <Footer />
         </main>
-    )
-}
+    );
+};

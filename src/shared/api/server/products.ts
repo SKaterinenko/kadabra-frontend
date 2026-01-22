@@ -1,13 +1,24 @@
-import {IProduct} from "../types";
+import {IProduct, ProductsFilters} from "../types";
 import {API_URL} from "../config";
+import {buildQuery} from '@/src/shared/utils/buildQuery'
 
-export async function getProducts(): Promise<IProduct[]> {
-    const res = await fetch(`${API_URL}/products`);
+export async function getProducts(
+    filters: ProductsFilters
+): Promise<IProduct[]> {
+    const query = buildQuery(filters);
+    const url = query
+        ? `${API_URL}/products?${query}`
+        : `${API_URL}/products`;
+
+    const res = await fetch(url);
+
     if (!res.ok) {
         throw new Error('Failed to fetch products');
     }
+
     return res.json();
 }
+
 
 export async function getProductsByCategoryIds(ids: number[]): Promise<IProduct[]> {
     const res = await fetch(`${API_URL}/products-by-category-ids`, {

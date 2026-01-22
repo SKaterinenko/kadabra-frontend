@@ -1,49 +1,71 @@
 'use client';
 
-import { ICategory, IProductsTypeByCategory } from "@/src/shared/api/types";
+import {
+    ICategory,
+    IManufacturer,
+    IProductsTypeByCategory,
+} from "@/src/shared/api/types";
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { Checkbox } from "@/src/shared/ui/Checkbox";
 import { Skeleton } from "@/src/shared/ui/Skeleton/Skeleton";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
+interface FiltersState {
+    categories: number[];
+    types: number[];
+    manufacturers: number[];
+}
+
 interface Props {
     categories?: ICategory[];
     productsType?: IProductsTypeByCategory[];
-    selectedIds: number[];
-    setSelectedIds: Dispatch<SetStateAction<number[]>>;
+    manufacturers?: IManufacturer[];
+    filters: FiltersState;
+    setFilters: Dispatch<SetStateAction<FiltersState>>;
 }
 
-export const Filters: FC<Props> = ({categories, productsType, selectedIds, setSelectedIds}) => {
+export const Filters: FC<Props> = ({categories, productsType, manufacturers, filters, setFilters}) => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
+    // восстановление из URL
     useEffect(() => {
-        const filters = searchParams.get("filters");
-        if (!filters) return;
+        const categories = searchParams.get("categories");
+        const types = searchParams.get("types");
+        const manufacturers = searchParams.get("manufacturers");
 
-        const ids = filters
-            .split(",")
-            .map(Number)
-            .filter(Boolean);
+        setFilters({
+            categories: categories?.split(",").map(Number).filter(Boolean) ?? [],
+            types: types?.split(",").map(Number).filter(Boolean) ?? [],
+            manufacturers:
+                manufacturers?.split(",").map(Number).filter(Boolean) ?? [],
+        });
+    }, [searchParams, setFilters]);
 
-        setSelectedIds(ids);
-    }, [searchParams, setSelectedIds]);
-
-
-    const handleCheckboxChange = (id: number, checked: boolean) => {
+    // универсальный обработчик
+    const updateFilter = (
+        key: keyof FiltersState,
+        id: number,
+        checked: boolean
+    ) => {
         const updated = checked
-            ? [...selectedIds, id]
-            : selectedIds.filter((item) => item !== id);
+            ? [...filters[key], id]
+            : filters[key].filter((item) => item !== id);
 
-        setSelectedIds(updated);
+        const nextFilters = {
+            ...filters,
+            [key]: updated,
+        };
+
+        setFilters(nextFilters);
 
         const params = new URLSearchParams(searchParams.toString());
 
         if (updated.length) {
-            params.set("filters", updated.join(","));
+            params.set(key, updated.join(","));
         } else {
-            params.delete("filters");
+            params.delete(key);
         }
 
         router.replace(`${pathname}?${params.toString()}`, {
@@ -53,48 +75,64 @@ export const Filters: FC<Props> = ({categories, productsType, selectedIds, setSe
 
     return (
         <div className="p-5 shadow max-w-[250px]">
+            {/* Categories */}
             <h3 className="text-[18px] font-bold">Категории</h3>
-
-            <div className="gap-[12px] flex flex-col mt-[15px]">
+            <div className="mt-3 flex flex-col gap-2">
                 {categories?.map((item) => (
                     <div key={item.id} className="flex gap-2 items-center">
                         <Checkbox
-                            id={String(item.id)}
-                            checked={selectedIds.includes(item.id)}
+                            id={`cat-${item.id}`}
+                            checked={filters.categories.includes(item.id)}
                             onCheckedChange={(checked) =>
-                                handleCheckboxChange(item.id, checked as boolean)
+                                updateFilter("categories", item.id, checked as boolean)
                             }
                         />
-                        <label htmlFor={String(item.id)}>{item.name}</label>
-                    </div>
-                ))}
-
-                {!categories?.length && !productsType?.length &&
-                    Array.from({ length: 5 }).map((_, i) => (
-                        <Skeleton key={i} className="h-[25px] w-[180px]" />
-                    ))}
-
-                {productsType?.map((item) => (
-                    <div key={item.id}>
-                        <p className="font-medium">{item.name}</p>
-
-                        <div className="ml-[10px] mt-2 flex flex-col gap-2">
-                            {item.products_type.map((type) => (
-                                <div key={type.id} className="flex gap-2 items-center">
-                                    <Checkbox
-                                        id={String(type.id)}
-                                        checked={selectedIds.includes(type.id)}
-                                        onCheckedChange={(checked) =>
-                                            handleCheckboxChange(type.id, checked as boolean)
-                                        }
-                                    />
-                                    <label htmlFor={String(type.id)}>{type.name}</label>
-                                </div>
-                            ))}
-                        </div>
+                        <label htmlFor={`cat-${item.id}`}>{item.name}</label>
                     </div>
                 ))}
             </div>
+
+            {/* Types */}
+            {productsType?.map((item) => (
+                <div key={item.id} className="mt-4">
+                    <p className="font-medium">{item.name}</p>
+                    <div className="ml-2 mt-2 flex flex-col gap-2">
+                        {item.products_type.map((type) => (
+                            <div key={type.id} className="flex gap-2 items-center">
+                                <Checkbox
+                                    id={`type-${type.id}`}
+                                    checked={filters.types.includes(type.id)}
+                                    onCheckedChange={(checked) =>
+                                        updateFilter("types", type.id, checked as boolean)
+                                    }
+                                />
+                                <label htmlFor={`type-${type.id}`}>{type.name}</label>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+
+            {/* Manufacturers */}
+            <h3 className="text-[18px] font-bold mt-4">Бренды</h3>
+            <div className="mt-3 flex flex-col gap-2">
+                {manufacturers?.map((item) => (
+                    <div key={item.id} className="flex gap-2 items-center">
+                        <Checkbox
+                            id={`man-${item.id}`}
+                            checked={filters.manufacturers.includes(item.id)}
+                            onCheckedChange={(checked) =>
+                                updateFilter("manufacturers", item.id, checked as boolean)
+                            }
+                        />
+                        <label htmlFor={`man-${item.id}`}>{item.name}</label>
+                    </div>
+                ))}
+            </div>
+
+            {!categories?.length && !manufacturers?.length && (
+                <Skeleton className="h-[25px] w-[180px]" />
+            )}
         </div>
     );
 };

@@ -12,7 +12,7 @@ const CategoryPage: FC<Props> = async ({ params }) => {
 
     return (
         <div>
-            <Category name={category?.name} slug={slug} />
+            <Category category={category}/>
         </div>
     );
 }
