@@ -3,6 +3,7 @@ import StarRating from "@/src/shared/ui/StarRating/StarRating";
 import {ICategory, IProduct} from "@/src/shared/api/types";
 import {FC} from "react";
 import clsx from "clsx";
+import Link from "next/link";
 
 interface Props {
     data: IProduct | ICategory;
@@ -11,8 +12,9 @@ interface Props {
 
 export const ProductCard:FC<Props> = ({data, subTitle}) => {
     if (!data) { return }
+
     return (
-        <div className="shadow rounded-[3px] max-h-[370px]">
+        <Link href={`/product/${data?.slug}`}  className="shadow rounded-[3px] max-h-[370px]">
             <div>
                 <Image src="/images/product1.png" width={300} height={222} alt="Product"/>
             </div>
@@ -23,6 +25,6 @@ export const ProductCard:FC<Props> = ({data, subTitle}) => {
                         : <p className="text-primary!">{subTitle}</p> }
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }

@@ -38,6 +38,7 @@ export const Filters: FC<Props> = ({categories, productsType, manufacturers, fil
         setFilters({
             categories: categories?.split(",").map(Number).filter(Boolean) ?? [],
             types: types?.split(",").map(Number).filter(Boolean) ?? [],
+
             manufacturers:
                 manufacturers?.split(",").map(Number).filter(Boolean) ?? [],
         });
@@ -113,26 +114,37 @@ export const Filters: FC<Props> = ({categories, productsType, manufacturers, fil
                 </div>
             ))}
 
-            {/* Manufacturers */}
-            <h3 className="text-[18px] font-bold mt-4">Бренды</h3>
-            <div className="mt-3 flex flex-col gap-2">
-                {manufacturers?.map((item) => (
-                    <div key={item.id} className="flex gap-2 items-center">
-                        <Checkbox
-                            id={`man-${item.id}`}
-                            checked={filters.manufacturers.includes(item.id)}
-                            onCheckedChange={(checked) =>
-                                updateFilter("manufacturers", item.id, checked as boolean)
-                            }
-                        />
-                        <label htmlFor={`man-${item.id}`}>{item.name}</label>
-                    </div>
+            {!categories?.length && !productsType?.length &&
+                Array.from({ length: 3 }).map((_, i) => (
+                    <Skeleton key={i} className="h-[25px] w-[180px] mb-2" />
                 ))}
-            </div>
 
-            {!categories?.length && !manufacturers?.length && (
-                <Skeleton className="h-[25px] w-[180px]" />
-            )}
+            {!categories?.length &&
+                <>
+                    <h3 className="text-[18px] font-bold mt-4">Бренды</h3>
+                    <div className="mt-3 flex flex-col gap-2">
+                        {manufacturers?.map((item) => (
+                            <div key={item.id} className="flex gap-2 items-center">
+                                <Checkbox
+                                    id={`man-${item.id}`}
+                                    checked={filters.manufacturers.includes(item.id)}
+                                    onCheckedChange={(checked) =>
+                                        updateFilter("manufacturers", item.id, checked as boolean)
+                                    }
+                                />
+                                <label htmlFor={`man-${item.id}`}>{item.name}</label>
+                            </div>
+                        ))}
+                    </div>
+
+
+                    {!manufacturers?.length  &&
+                        Array.from({ length: 3 }).map((_, i) => (
+                            <Skeleton key={i} className="h-[25px] w-[180px] mb-2" />
+                        ))}
+                </>
+            }
+
         </div>
     );
 };

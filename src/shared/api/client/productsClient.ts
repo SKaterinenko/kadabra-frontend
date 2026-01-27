@@ -13,7 +13,7 @@ export function useGetProducts(filters: ProductsFilters) {
     return useQuery({
         queryKey: ['products', filters],
         queryFn: () => getProducts(filters),
-        //keepPreviousData: true,
+        staleTime: 1000 * 60 * 5, // 5 минут
     });
 }
 

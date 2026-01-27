@@ -1,10 +1,10 @@
-import {IProduct, ProductsFilters} from "../types";
+import {IProduct, IProductWithParents, ProductsFilters, ResProducts} from "../types";
 import {API_URL} from "../config";
 import {buildQuery} from '@/src/shared/utils/buildQuery'
 
 export async function getProducts(
     filters: ProductsFilters
-): Promise<IProduct[]> {
+): Promise<ResProducts> {
     const query = buildQuery(filters);
     const url = query
         ? `${API_URL}/products?${query}`
@@ -58,6 +58,14 @@ export async function getProductsByManufacturerId(id?: number): Promise<IProduct
     const res = await fetch(`${API_URL}/products-by-manufacturer-id/${id}`);
     if (!res.ok) {
         throw new Error('Failed to fetch products');
+    }
+    return res.json();
+}
+
+export async function getProductBySlug(slug: string): Promise<IProductWithParents> {
+    const res = await fetch(`${API_URL}/product/${slug}`);
+    if (!res.ok) {
+        throw new Error('Failed to fetch product');
     }
     return res.json();
 }

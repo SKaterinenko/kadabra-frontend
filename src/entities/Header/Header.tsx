@@ -12,7 +12,7 @@ export const Header =  () => {
     const {data: categories} = useGetCategories()
 
     return (
-        <header>
+        <header className="shadow">
             <div className="bg-amber-300 text-center">
                 <h2>Сайт пет-проект backend + frontend by <Link className="text-blue-400" href="https://github.com/SKaterinenko/kadabra-frontend">SKaterinenko</Link></h2>
             </div>

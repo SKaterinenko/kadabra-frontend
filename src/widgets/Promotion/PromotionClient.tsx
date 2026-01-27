@@ -6,5 +6,5 @@ import {useGetProducts} from "@/src/shared/api/client/productsClient";
 export const PromotionClient = () => {
     const {data: products} = useGetProducts({})
 
-    return <PromotionView products={products} />;
+    return <PromotionView products={products?.data} />;
 };

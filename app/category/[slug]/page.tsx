@@ -11,9 +11,7 @@ const CategoryPage: FC<Props> = async ({ params }) => {
     const category = await getCategoryBySlug(slug)
 
     return (
-        <div>
             <Category category={category}/>
-        </div>
     );
 }
 

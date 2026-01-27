@@ -3,7 +3,7 @@ import {getProducts} from "@/src/shared/api/server/products";
 import {H2} from "@/src/shared/ui/H2";
 
 export const BestOfMonth = async () =>{
-const products  = await getProducts()
+    const {data: products} = await getProducts({});
 
     return (
         <section>
