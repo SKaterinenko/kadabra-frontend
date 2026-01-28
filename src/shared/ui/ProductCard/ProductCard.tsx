@@ -4,6 +4,7 @@ import {ICategory, IProduct} from "@/src/shared/api/types";
 import {FC} from "react";
 import clsx from "clsx";
 import Link from "next/link";
+import {Skeleton} from "@/src/shared/ui/Skeleton/Skeleton";
 
 interface Props {
     data: IProduct | ICategory;
@@ -11,20 +12,39 @@ interface Props {
 }
 
 export const ProductCard:FC<Props> = ({data, subTitle}) => {
-    if (!data) { return }
+    const prices = ('variations' in data && data.variations)
+        ? data.variations.map(el => el.price)
+        : [];
+
+    const minPrice = prices.length > 0 ? Math.min(...prices) : 0;
+    const maxPrice = prices.length > 0 ? Math.max(...prices) : 0;
+
+    const imageUrl = 'variations' in data && data.variations?.[0]?.image
+        ? data.variations[0].image
+        : "/images/noProduct.png";
 
     return (
-        <Link href={`/product/${data?.slug}`}  className="shadow rounded-[3px] max-h-[370px]">
-            <div>
-                <Image src="/images/product1.png" width={300} height={222} alt="Product"/>
-            </div>
-            <div className="py-[25px] px-[15px]">
-                <p className={clsx(subTitle && "font-bold text-2xl")}>{data?.name}</p>
-                <div className="mt-[10px]">
-                    {!subTitle ?  <StarRating initialRating={4} editable={false} size={20} />
-                        : <p className="text-primary!">{subTitle}</p> }
+        <>
+            { data ?
+                <Link href={`/product/${data?.slug}`}  className="shadow rounded-[3px]">
+                    <Image
+                    src={imageUrl}
+                    className="w-full h-auto max-w-[300px] max-h-[222px] object-contain"
+                    width={300}
+                    height={222}
+                    alt="Product"
+                    />
+
+                <div className="py-[25px] px-[15px]">
+                    <p className="font-bold">${minPrice} - ${maxPrice}</p>
+                    <p className={clsx(subTitle && "font-bold text-2xl")}>{data?.name}</p>
+                    <div className="mt-[10px]">
+                        {!subTitle ?  <StarRating initialRating={4} editable={false} size={20} />
+                            : <p className="text-primary!">{subTitle}</p> }
+                    </div>
                 </div>
-            </div>
-        </Link>
+            </Link> : <Skeleton className="h-[250px] w-[200px]" />}
+        </>
+
     )
 }

@@ -6,8 +6,16 @@ export interface IProduct {
     manufacturer_id: number
     short_description: string
     description: string
+    variations: IVariation[]
     created_at: string
     updated_at: string
+}
+
+interface IVariation {
+    id: number
+    name: string
+    image: string
+    price: number
 }
 
 export interface ResProducts {
@@ -70,9 +78,15 @@ export interface IProductWithParents {
     manufacturer_id: number;
     short_description: string;
     description: string;
+    variations: IVariation[]
     created_at: string;
     updated_at: string;
     product_type: IProductType;
+    manufacturer: {
+        id: number
+        name: string
+        slug: string
+    };
 }
 
 interface IProductType {

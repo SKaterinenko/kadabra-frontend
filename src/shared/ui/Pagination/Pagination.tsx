@@ -81,7 +81,7 @@ export const PaginationComponents: FC<Props> = ({ limit, setOffset, offset, tota
             <PaginationLink
                 className={clsx(
                     "h-8 w-8 cursor-pointer p-0",
-                    currentPage === pageNum && "bg-secondary h-8 w-9 rounded-full font-bold text-white",
+                    currentPage === pageNum && "h-8 w-9 rounded-full font-bold text-white",
                 )}
                 onClick={() => handlePageChange(pageNum)}
             >
