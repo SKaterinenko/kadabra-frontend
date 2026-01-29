@@ -23,20 +23,22 @@ export const ProductCard:FC<Props> = ({data, subTitle}) => {
         ? data.variations[0].image
         : "/images/noProduct.png";
 
+    const url = ('variations' in data && data.variations) ? `/product/${data?.slug}` : `/category/${data?.slug}`
+
     return (
         <>
             { data ?
-                <Link href={`/product/${data?.slug}`}  className="shadow rounded-[3px]">
+                <Link href={url}  className="shadow rounded-[3px]">
                     <Image
                     src={imageUrl}
-                    className="w-full h-auto max-w-[300px] max-h-[222px] object-contain"
+                    className="w-full h-auto w-[300px] h-[222px] object-contain"
                     width={300}
                     height={222}
                     alt="Product"
                     />
 
                 <div className="py-[25px] px-[15px]">
-                    <p className="font-bold">${minPrice} - ${maxPrice}</p>
+                    {minPrice > 0 &&  <p className="font-bold">${minPrice} - ${maxPrice}</p>}
                     <p className={clsx(subTitle && "font-bold text-2xl")}>{data?.name}</p>
                     <div className="mt-[10px]">
                         {!subTitle ?  <StarRating initialRating={4} editable={false} size={20} />
