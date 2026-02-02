@@ -100,3 +100,20 @@ interface SubCategory {
     name: string;
     category: ICategory;
 }
+
+export interface IUser {
+    id: number;
+    first_name: string;
+    last_name: string;
+    email: string;
+    birth_date: string;
+    phone_number: string;
+    gender: "male" | "female";
+    created_at: string;
+    updated_at: string;
+}
+
+export interface ILoginRequest {
+    email: string;
+    password: string;
+}
