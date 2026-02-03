@@ -2,6 +2,7 @@ import {FC} from "react";
 import {Banner} from "@/src/shared/ui/Banner";
 import Image from "next/image";
 import {Button} from "@/src/shared/ui/Button";
+import Link from "next/link";
 
 export const LoginBanner:FC = () => {
     return (
@@ -11,8 +12,13 @@ export const LoginBanner:FC = () => {
                 <h2 className="text-4xl font-bold">Добро пожаловать!</h2>
                 <p>Продолжайте покупки с нами</p>
                 <div className="flex gap-5 mt-5 w-full">
-                    <Button>Регистрация</Button>
-                    <Button variant="outlined">Вход</Button>
+                    <Link href="/registration" className="w-full">
+                        <Button>Регистрация</Button>
+                    </Link>
+                
+                    <Link href="/login" className="w-full">
+                        <Button variant="outlined">Вход</Button>
+                    </Link>
                 </div>
             </div>
             <Banner path="/images/banner2.jpg"/>

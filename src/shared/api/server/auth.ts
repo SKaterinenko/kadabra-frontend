@@ -7,6 +7,7 @@ export async function login(credentials: ILoginRequest): Promise<IUser> {
         headers: {
             "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(credentials),
     });
 
@@ -14,6 +15,24 @@ export async function login(credentials: ILoginRequest): Promise<IUser> {
 
     if (!res.ok) {
         throw new Error(data.message || 'Failed to login');
+    }
+
+    return data;
+}
+
+export async function refresh() {
+    const res = await fetch(`${API_URL}/auth/refresh`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        credentials: "include",
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        throw new Error(data.message || 'Failed to refresh tokens');
     }
 
     return data;

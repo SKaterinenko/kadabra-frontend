@@ -9,6 +9,7 @@ import {useForm} from "react-hook-form";
 import {LoginFormData, loginSchema} from "./loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {useLogin} from "@/src/shared/api/client/authClient";
+import { useRouter } from 'next/navigation'
 
 export const Login = () => {
     const {
@@ -19,12 +20,14 @@ export const Login = () => {
         resolver: zodResolver(loginSchema),
     });
     const { mutate: loginUser, isPending, isError, error } = useLogin();
+    const router = useRouter();
 
     const onSubmit = async (data: LoginFormData) => {
         loginUser({
             email: data.email,
             password: data.password,
-        });
+        }, 
+        { onSuccess: () => {router.push("/")} });
     };
 
     return (
