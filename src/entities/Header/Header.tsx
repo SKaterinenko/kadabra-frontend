@@ -26,8 +26,12 @@ export const Header =  () => {
                         <Input placeholder="Поиск товаров:" width={790} search/>
                     </div>
                     <div className="flex gap-8 items-center">
-                        <Image src="/images/cart.svg" width={32} height={28} alt="Cart"/>
-                        <Image src="/images/user.svg" width={26} height={28} alt="User"/>
+                        <Link href="/cart">
+                            <Image src="/images/cart.svg" width={32} height={28} alt="Cart"/>
+                        </Link>
+                        <Link href="/profile">
+                            <Image src="/images/user.svg" width={26} height={28} alt="User"/>
+                        </Link>
                         <p>ozb</p>
                     </div>
 

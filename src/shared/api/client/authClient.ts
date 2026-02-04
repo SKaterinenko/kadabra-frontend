@@ -1,14 +1,32 @@
-import { useMutation } from "@tanstack/react-query";
-import { login } from "@/src/shared/api/server/auth";
+import {useMutation, useQuery} from "@tanstack/react-query";
+import {getMe, getRefresh, login, logout} from "@/src/shared/api/server/auth";
 
 export function useLogin() {
     return useMutation({
         mutationFn: login,
-        onSuccess: (data) => {
-            console.log("Login successful:", data);
-        },
-        onError: (error) => {
-            console.error("Login failed:", error);
-        },
+    });
+}
+
+export function useRefresh() {
+    return useQuery({
+        queryKey: ['user'],
+        queryFn: getRefresh,
+        refetchInterval: 2 * 60 * 1000,
+        refetchIntervalInBackground: true,
+    });
+}
+
+export function useGetMe() {
+    return useQuery({
+        queryKey: ['user'],
+        queryFn: getMe,
+        staleTime: 5 * 60 * 1000, // 5 минут
+        retry: false, // не повторять при 401
+    });
+}
+
+export function useLogout() {
+    return useMutation({
+        mutationFn: logout,
     });
 }

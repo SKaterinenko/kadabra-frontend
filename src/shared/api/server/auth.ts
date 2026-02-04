@@ -20,9 +20,9 @@ export async function login(credentials: ILoginRequest): Promise<IUser> {
     return data;
 }
 
-export async function refresh() {
+export async function getRefresh(): Promise<IUser> {
     const res = await fetch(`${API_URL}/auth/refresh`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
             "Content-Type": "application/json",
         },
@@ -33,6 +33,37 @@ export async function refresh() {
 
     if (!res.ok) {
         throw new Error(data.message || 'Failed to refresh tokens');
+    }
+
+    return data;
+}
+
+export async function logout() {
+    const res = await fetch(`${API_URL}/auth/logout`, {
+        method: 'POST',
+        credentials: "include",
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        throw new Error(data.message || 'Failed to logout');
+    }
+
+    return data;
+}
+
+
+export async function getMe(): Promise<IUser> {
+    const res = await fetch(`${API_URL}/me`, {
+        method: 'GET',
+        credentials: "include",
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        throw new Error(data.message || 'Failed to get Me');
     }
 
     return data;
