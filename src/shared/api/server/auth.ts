@@ -1,70 +1,69 @@
-import {ILoginRequest, IUser} from "@/src/shared/api/types";
-import {API_URL} from "@/src/shared/api/config";
+import { API_URL } from "@/src/shared/api/config";
+import type { ILoginRequest, IUser } from "@/src/shared/api/types";
 
 export async function login(credentials: ILoginRequest): Promise<IUser> {
-    const res = await fetch(`${API_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(credentials),
-    });
+	const res = await fetch(`${API_URL}/auth/login`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		credentials: "include",
+		body: JSON.stringify(credentials),
+	});
 
-    const data = await res.json();
+	const data = await res.json();
 
-    if (!res.ok) {
-        throw new Error(data.message || 'Failed to login');
-    }
+	if (!res.ok) {
+		throw new Error(data.message || "Failed to login");
+	}
 
-    return data;
+	return data;
 }
 
 export async function getRefresh(): Promise<IUser> {
-    const res = await fetch(`${API_URL}/auth/refresh`, {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-        },
-        credentials: "include",
-    });
+	const res = await fetch(`${API_URL}/auth/refresh`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		credentials: "include",
+	});
 
-    const data = await res.json();
+	const data = await res.json();
 
-    if (!res.ok) {
-        throw new Error(data.message || 'Failed to refresh tokens');
-    }
+	if (!res.ok) {
+		throw new Error(data.message || "Failed to refresh tokens");
+	}
 
-    return data;
+	return data;
 }
 
 export async function logout() {
-    const res = await fetch(`${API_URL}/auth/logout`, {
-        method: 'POST',
-        credentials: "include",
-    });
+	const res = await fetch(`${API_URL}/auth/logout`, {
+		method: "POST",
+		credentials: "include",
+	});
 
-    const data = await res.json();
+	const data = await res.json();
 
-    if (!res.ok) {
-        throw new Error(data.message || 'Failed to logout');
-    }
+	if (!res.ok) {
+		throw new Error(data.message || "Failed to logout");
+	}
 
-    return data;
+	return data;
 }
 
-
 export async function getMe(): Promise<IUser> {
-    const res = await fetch(`${API_URL}/me`, {
-        method: 'GET',
-        credentials: "include",
-    });
+	const res = await fetch(`${API_URL}/me`, {
+		method: "GET",
+		credentials: "include",
+	});
 
-    const data = await res.json();
+	const data = await res.json();
 
-    if (!res.ok) {
-        throw new Error(data.message || 'Failed to get Me');
-    }
+	if (!res.ok) {
+		throw new Error(data.message || "Failed to get Me");
+	}
 
-    return data;
+	return data;
 }

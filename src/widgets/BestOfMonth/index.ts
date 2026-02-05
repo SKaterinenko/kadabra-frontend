@@ -1,1 +1,1 @@
-export { BestOfMonth } from './BestOfMonth';
+export { BestOfMonth } from "./BestOfMonth";

@@ -1,1 +1,1 @@
-export { LoginBanner } from './LoginBanner';
+export { LoginBanner } from "./LoginBanner";

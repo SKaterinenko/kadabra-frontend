@@ -1,10 +1,10 @@
 "use client";
 
+import { useGetProducts } from "@/src/shared/api/client/productsClient";
 import { PromotionView } from "./PromotionView";
-import {useGetProducts} from "@/src/shared/api/client/productsClient";
 
 export const PromotionClient = () => {
-    const {data: products} = useGetProducts({})
+	const { data: products } = useGetProducts({});
 
-    return <PromotionView products={products?.data} />;
+	return <PromotionView products={products?.data} />;
 };

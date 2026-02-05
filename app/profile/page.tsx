@@ -1,7 +1,5 @@
-import {Profile} from "@/src/page/Profile";
+import { Profile } from "@/src/page/Profile";
 
 export default function ProfilePage() {
-  return (
-      <Profile />
-  )
+	return <Profile />;
 }

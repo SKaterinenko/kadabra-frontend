@@ -1,1 +1,1 @@
-export { TelegramBanner } from './TelegramBanner';
+export { TelegramBanner } from "./TelegramBanner";
