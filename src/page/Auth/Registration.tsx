@@ -3,8 +3,8 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import {useForm} from "react-hook-form";
-import {useLogin} from "@/src/shared/api/client/authClient";
+import {Controller, useForm} from "react-hook-form";
+import {useRegister} from "@/src/shared/api/client/authClient";
 import {Button} from "@/src/shared/ui/Button";
 import {H1} from "@/src/shared/ui/H1";
 import {Input} from "@/src/shared/ui/Input";
@@ -16,18 +16,16 @@ export const Registration = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
+		control,
 	} = useForm<RegisterFormData>({
 		resolver: zodResolver(registerSchema),
 	});
-	const { mutate: loginUser, isPending, isError, error } = useLogin();
+	const { mutate: registerUser, isPending, isError, error } = useRegister();
 	const router = useRouter();
 
 	const onSubmit = async (data: RegisterFormData) => {
-		loginUser(
-			{
-				email: data.email,
-				password: data.password,
-			},
+		registerUser(
+			{ ...data },
 			{
 				onSuccess: () => {
 					router.push("/");
@@ -40,7 +38,7 @@ export const Registration = () => {
 		<section className="flex h-screen">
 			<div className="w-1/2 h-full relative">
 				<Image
-					src="/images/authBanner1.png"
+					src="/images/authBanner2.png"
 					alt="Photo"
 					fill
 					className="object-cover"
@@ -69,13 +67,15 @@ export const Registration = () => {
 						<div className="flex flex-col gap-2">
 							<p>Имя:</p>
 							<Input
-								{...register("name")}
+								{...register("first_name")}
 								className="w-full"
 								classNameInput="w-full border border-light-gray"
 								error={errors.email}
 							/>
-							{errors.name && (
-								<p className="!text-red-500 text-sm">{errors.name.message}</p>
+							{errors.first_name && (
+								<p className="!text-red-500 text-sm">
+									{errors.first_name.message}
+								</p>
 							)}
 						</div>
 
@@ -95,6 +95,21 @@ export const Registration = () => {
 						</div>
 
 						<div className="flex flex-col gap-2">
+							<p>Дата рождения:</p>
+							<Input
+								type="date"
+								{...register("birth_date")}
+								className="w-full"
+								classNameInput="w-full border border-light-gray"
+							/>
+							{errors.birth_date && (
+								<p className="!text-red-500 text-sm">
+									{errors.birth_date.message}
+								</p>
+							)}
+						</div>
+
+						<div className="flex flex-col gap-2">
 							<p>Номер телефона:</p>
 							<Input
 								{...register("phone_number")}
@@ -108,16 +123,35 @@ export const Registration = () => {
 								</p>
 							)}
 						</div>
+						<div className="flex flex-col gap-2">
+							<p>Почта:</p>
+							<Input
+								{...register("email")}
+								className="w-full"
+								classNameInput="w-full border border-light-gray"
+								error={errors.email}
+							/>
+							{errors.email && (
+								<p className="!text-red-500 text-sm">{errors.email.message}</p>
+							)}
+						</div>
 
 						<div className="flex flex-col gap-2">
 							<p>Пол:</p>
-							<Select
-								{...register("gender")}
-								placeholder="Пол"
-								options={[
-									{ value: "male", label: "Мужской" },
-									{ value: "female", label: "Женский" },
-								]}
+							<Controller
+								name="gender"
+								control={control}
+								render={({ field }) => (
+									<Select
+										placeholder="Пол"
+										value={field.value}
+										onValueChange={field.onChange}
+										options={[
+											{ value: "male", label: "Мужской" },
+											{ value: "female", label: "Женский" },
+										]}
+									/>
+								)}
 							/>
 
 							{errors.gender && (
@@ -128,7 +162,7 @@ export const Registration = () => {
 						<div className="flex flex-col gap-2">
 							<div className="flex justify-between">
 								<p>Пароль:</p>
-								<p className="!text-gray cursor-pointer">Забыли пароль?</p>
+								<p className="!text-gray cursor-pointer">Минимум 4 символа</p>
 							</div>
 
 							<Input
@@ -143,10 +177,26 @@ export const Registration = () => {
 									{errors.password.message}
 								</p>
 							)}
+
+							<div className="flex justify-between">
+								<p>Повторите пароль:</p>
+							</div>
+							<Input
+								type="password"
+								{...register("repeat_password")}
+								className="w-full"
+								classNameInput="w-full border border-light-gray"
+								error={errors.repeat_password}
+							/>
+							{errors.repeat_password && (
+								<p className="!text-red-500 text-sm">
+									{errors.repeat_password.message}
+								</p>
+							)}
 						</div>
 
 						<Button type="submit" disabled={isPending}>
-							{isPending ? "Входим..." : "Войти"}
+							{isPending ? "Регистрация..." : "Регистрация"}
 						</Button>
 
 						{isError && (
@@ -156,10 +206,7 @@ export const Registration = () => {
 						)}
 
 						<p className="!text-gray flex justify-end">
-							Еще нет аккаунта?{" "}
-							<Link href="/register" className="ml-1 underline">
-								Зарегистрируйтесь
-							</Link>
+							<Link href="/login">Уже есть аккаунт? Войдите</Link>
 						</p>
 					</form>
 				</div>

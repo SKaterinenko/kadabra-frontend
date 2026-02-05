@@ -1,5 +1,5 @@
-import { API_URL } from "@/src/shared/api/config";
-import type { ILoginRequest, IUser } from "@/src/shared/api/types";
+import {API_URL} from "@/src/shared/api/config";
+import type {ILoginRequest, IRegisterRequest, IUser,} from "@/src/shared/api/types";
 
 export async function login(credentials: ILoginRequest): Promise<IUser> {
 	const res = await fetch(`${API_URL}/auth/login`, {
@@ -63,6 +63,25 @@ export async function getMe(): Promise<IUser> {
 
 	if (!res.ok) {
 		throw new Error(data.message || "Failed to get Me");
+	}
+
+	return data;
+}
+
+export async function register(credentials: IRegisterRequest): Promise<IUser> {
+	const res = await fetch(`${API_URL}/auth/register`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		credentials: "include",
+		body: JSON.stringify(credentials),
+	});
+
+	const data = await res.json();
+
+	if (!res.ok) {
+		throw new Error(data.message || "Failed to register");
 	}
 
 	return data;

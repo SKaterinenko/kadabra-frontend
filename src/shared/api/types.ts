@@ -117,3 +117,14 @@ export interface ILoginRequest {
 	email: string;
 	password: string;
 }
+
+export interface IRegisterRequest {
+	first_name: string;
+	last_name: string;
+	email: string;
+	birth_date: string;
+	phone_number?: string;
+	gender: "male" | "female";
+	password: string;
+	repeat_password: string;
+}

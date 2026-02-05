@@ -109,9 +109,8 @@ export const Login = () => {
 						)}
 
 						<p className="!text-gray flex justify-end">
-							Еще нет аккаунта?{" "}
-							<Link href="/register" className="ml-1 underline">
-								Зарегистрируйтесь
+							<Link href="/registration">
+								Еще нет аккаунта? Зарегистрируйтесь
 							</Link>
 						</p>
 					</form>

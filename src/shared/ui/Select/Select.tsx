@@ -1,14 +1,8 @@
 "use client";
 
+import clsx from "clsx";
 import type * as React from "react";
-import {
-	RadixSelect,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "./RadixSelect";
+import {RadixSelect, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue,} from "./RadixSelect";
 
 type SelectOption = {
 	label: React.ReactNode;
@@ -44,11 +38,11 @@ export function Select({
 			onValueChange={onValueChange}
 			disabled={disabled}
 		>
-			<SelectTrigger className={className}>
+			<SelectTrigger className={clsx("w-full ", className)}>
 				<SelectValue placeholder={placeholder} />
 			</SelectTrigger>
 
-			<SelectContent>
+			<SelectContent position="popper">
 				<SelectGroup>
 					{options.map((option) => (
 						<SelectItem
