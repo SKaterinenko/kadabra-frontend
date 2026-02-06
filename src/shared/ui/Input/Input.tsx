@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
-import { forwardRef } from "react";
-import type { FieldError } from "react-hook-form";
+import {forwardRef} from "react";
+import type {FieldError} from "react-hook-form";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 	placeholder?: string;
@@ -24,7 +24,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
 					placeholder={placeholder}
 					style={{ width }}
 					className={clsx(
-						"shadow py-3 px-6 rounded-[5px] focus-visible:outline-primary disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-light-gray",
+						"shadow py-[7px] px-6 rounded-[5px] focus-visible:outline-primary disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-light-gray",
 						search && "pr-12",
 						error && "border-red-500",
 						classNameInput,

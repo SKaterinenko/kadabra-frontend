@@ -35,8 +35,8 @@ export const Registration = () => {
 	};
 
 	return (
-		<section className="flex h-screen">
-			<div className="w-1/2 h-full relative">
+		<section className="flex">
+			<div className="w-1/2 h-120vh relative">
 				<Image
 					src="/images/authBanner2.png"
 					alt="Photo"
@@ -47,7 +47,7 @@ export const Registration = () => {
 			</div>
 
 			<div className="w-1/2 flex items-center justify-center">
-				<div className="shadow p-[50px] w-[520px]">
+				<div className="shadow p-[45px] w-[520px]">
 					<div className="flex justify-between items-center">
 						<H1 className="!text-4xl">Регистрация</H1>
 						<Link href="/">
