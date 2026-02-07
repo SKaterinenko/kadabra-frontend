@@ -1,8 +1,8 @@
 // app/components/StarRating.tsx
 "use client";
 
-import { Star } from "lucide-react";
-import { useState } from "react";
+import {Star} from "lucide-react";
+import {useState} from "react";
 
 type StarRatingProps = {
 	maxStars?: number;
@@ -18,7 +18,7 @@ type StarRatingProps = {
 const StarRating = ({
 	maxStars = 5,
 	initialRating = 0,
-	editable = true,
+	editable = false,
 	size = 32,
 	onChange,
 	className = "",

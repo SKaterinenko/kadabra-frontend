@@ -1,17 +1,21 @@
 "use client";
 import clsx from "clsx";
 import Image from "next/image";
-import { type FC, useState } from "react";
-import { Footer } from "@/src/entities/Footer";
-import { Header } from "@/src/entities/Header";
-import { Slider } from "@/src/entities/Slider";
-import { useGetProducts } from "@/src/shared/api/client/productsClient";
-import type { IProductWithParents } from "@/src/shared/api/types";
-import { Banner } from "@/src/shared/ui/Banner";
-import { Breadcrumbs } from "@/src/shared/ui/Breadcrumb";
-import { Button } from "@/src/shared/ui/Button";
-import { H1 } from "@/src/shared/ui/H1";
-import { H2 } from "@/src/shared/ui/H2";
+import {type FC, useState} from "react";
+import {Footer} from "@/src/entities/Footer";
+import {Header} from "@/src/entities/Header";
+import {Slider} from "@/src/entities/Slider";
+import {RatingCard} from "@/src/page/Product/ui/RatingCard";
+import {Review} from "@/src/page/Product/ui/Review";
+import {useGetProducts} from "@/src/shared/api/client/productsClient";
+import {useGetReviewsById} from "@/src/shared/api/client/reviews";
+import type {IProductWithParents} from "@/src/shared/api/types";
+import {Banner} from "@/src/shared/ui/Banner";
+import {Breadcrumbs} from "@/src/shared/ui/Breadcrumb";
+import {Button} from "@/src/shared/ui/Button";
+import {H1} from "@/src/shared/ui/H1";
+import {H2} from "@/src/shared/ui/H2";
+import {H3} from "@/src/shared/ui/H3";
 
 interface Props {
 	product: IProductWithParents;
@@ -23,6 +27,7 @@ export const Product: FC<Props> = ({ product }) => {
 	const [quantity, setQuantity] = useState(1);
 	const price = product?.variations?.[selected]?.price;
 	const { data: products } = useGetProducts({});
+	const { data: reviews } = useGetReviewsById(product?.id, {});
 
 	return (
 		<main>
@@ -110,18 +115,24 @@ export const Product: FC<Props> = ({ product }) => {
 					</div>
 				</div>
 				<div>
-					<p className="font-bold text-2xl">
-						Товары, которые также могут вам понравиться:
-					</p>
+					<H3>Товары, которые также могут вам понравиться:</H3>
 					<Slider data={products?.data} />
 				</div>
 				<Banner path="/images/banner6.png" />
-				<div className="flex">
-					<div>
+				<div className="flex justify-between mt-[50px]">
+					<div className="flex flex-col gap-5">
 						<H2>Характеристики товара:</H2>
 						<p>{product?.description}</p>
 					</div>
-					<div></div>
+					<RatingCard ratings={reviews?.ratings} />
+				</div>
+				<div>
+					<H2>Отзывы:</H2>
+					<div className="mt-6 flex flex-col gap-3">
+						{reviews?.reviews?.map((el) => (
+							<Review key={el?.id} review={el} />
+						))}
+					</div>
 				</div>
 			</div>
 			<Footer />

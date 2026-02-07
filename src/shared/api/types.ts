@@ -128,3 +128,38 @@ export interface IRegisterRequest {
 	password: string;
 	repeat_password: string;
 }
+
+export interface ReviewsFilters {
+	limit?: number;
+	offset?: number;
+}
+export interface IReviewsResponse {
+	reviews: IReview[];
+	ratings: IRating;
+}
+
+export interface IRating {
+	total_count: number;
+	rating_5: number;
+	rating_4: number;
+	rating_3: number;
+	rating_2: number;
+	rating_1: number;
+}
+
+export interface IReview {
+	id: number;
+	user_id: number;
+	product_id: number;
+	description: string;
+	rating: number;
+	images: string[];
+	created_at: string;
+	updated_at: string;
+	user: {
+		id: number;
+		first_name: string;
+		last_name: string;
+		avatar?: string;
+	};
+}
