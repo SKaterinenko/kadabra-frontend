@@ -15,7 +15,7 @@ type StarRatingProps = {
 	className?: string;
 };
 
-const StarRating = ({
+export const StarRating = ({
 	maxStars = 5,
 	initialRating = 0,
 	editable = false,
@@ -62,7 +62,7 @@ const StarRating = ({
 			<div className="flex items-center gap-[2px]">
 				{Array.from({ length: maxStars }).map((_, index) => (
 					<button
-						key={index}
+						key={Math.random()}
 						type="button"
 						onClick={() => handleClick(index)}
 						onMouseEnter={() => handleMouseEnter(index)}
@@ -101,5 +101,3 @@ const StarRating = ({
 		</div>
 	);
 };
-
-export default StarRating;

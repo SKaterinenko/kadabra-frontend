@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import type { FC } from "react";
-import type { ICategory, IProduct } from "@/src/shared/api/types";
-import { Skeleton } from "@/src/shared/ui/Skeleton/Skeleton";
-import StarRating from "@/src/shared/ui/StarRating/StarRating";
+import type {FC} from "react";
+import type {ICategory, IProduct} from "@/src/shared/api/types";
+import {StarRating} from "@/src/shared/ui/StarRating";
+import {ProductCardSkeleton} from "./ProductCardSkeleton";
 
 interface Props {
 	data: IProduct | ICategory;
@@ -30,39 +30,33 @@ export const ProductCard: FC<Props> = ({ data, subTitle }) => {
 			? `/product/${data?.slug}`
 			: `/category/${data?.slug}`;
 
-	return (
-		<>
-			{data ? (
-				<Link href={url} className="shadow rounded-[3px]">
-					<Image
-						src={imageUrl}
-						className="w-full h-auto w-[300px] h-[222px] object-contain"
-						width={300}
-						height={222}
-						alt="Product"
-					/>
+	if (!data) return <ProductCardSkeleton />;
 
-					<div className="py-[25px] px-[15px]">
-						{minPrice > 0 && (
-							<p className="font-bold">
-								${minPrice} - ${maxPrice}
-							</p>
-						)}
-						<p className={clsx(subTitle && "font-bold text-2xl")}>
-							{data?.name}
-						</p>
-						<div className="mt-[10px]">
-							{!subTitle ? (
-								<StarRating initialRating={4} editable={false} size={20} />
-							) : (
-								<p className="text-primary!">{subTitle}</p>
-							)}
-						</div>
-					</div>
-				</Link>
-			) : (
-				<Skeleton className="h-[250px] w-[200px]" />
-			)}
-		</>
+	return (
+		<Link href={url} className="shadow rounded-[3px]">
+			<Image
+				src={imageUrl}
+				className="w-full h-auto w-[300px] h-[222px] object-contain"
+				width={300}
+				height={222}
+				alt="Product"
+			/>
+
+			<div className="py-[25px] px-[15px]">
+				{minPrice > 0 && (
+					<p className="font-bold">
+						${minPrice} - ${maxPrice}
+					</p>
+				)}
+				<p className={clsx(subTitle && "font-bold text-2xl")}>{data?.name}</p>
+				<div className="mt-[10px]">
+					{!subTitle ? (
+						<StarRating initialRating={2} editable={false} size={20} />
+					) : (
+						<p className="text-primary!">{subTitle}</p>
+					)}
+				</div>
+			</div>
+		</Link>
 	);
 };

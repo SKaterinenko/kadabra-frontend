@@ -11,7 +11,7 @@ interface Props {
 
 export const Avatar: FC<Props> = ({ src, alt = "Avatar", size = 75 }) => {
 	return (
-		<RadixAvatar className={clsx(`w-[${size}px]! h-[${size}px]!`)}>
+		<RadixAvatar className={clsx(`w-[75px]! h-[75px]!`)}>
 			<AvatarImage src={src} alt={alt} className="grayscale" />
 			<AvatarFallback>
 				<Image src="/images/avatar.svg" alt="Avatar" fill />

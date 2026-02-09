@@ -7,6 +7,7 @@ import {Header} from "@/src/entities/Header";
 import {Slider} from "@/src/entities/Slider";
 import {RatingCard} from "@/src/page/Product/ui/RatingCard";
 import {Review} from "@/src/page/Product/ui/Review";
+import {ReviewSkeleton} from "@/src/page/Product/ui/ReviewSkeleton";
 import {useGetProducts} from "@/src/shared/api/client/productsClient";
 import {useGetReviewsById} from "@/src/shared/api/client/reviews";
 import type {IProductWithParents} from "@/src/shared/api/types";
@@ -27,7 +28,10 @@ export const Product: FC<Props> = ({ product }) => {
 	const [quantity, setQuantity] = useState(1);
 	const price = product?.variations?.[selected]?.price;
 	const { data: products } = useGetProducts({});
-	const { data: reviews } = useGetReviewsById(product?.id, {});
+	const { data: reviews, isLoading: isLoadingReviews } = useGetReviewsById(
+		product?.id,
+		{},
+	);
 
 	return (
 		<main>
@@ -46,31 +50,31 @@ export const Product: FC<Props> = ({ product }) => {
 					]}
 				/>
 				<div className="flex gap-[155px] mt-3">
-					<div className="w-[520px] h-[600px]">
-						<Image
-							src={product?.variations?.[selected]?.image}
-							className="w-full h-auto object-cover"
-							width={520}
-							height={600}
-							alt="Product"
-						/>
-					</div>
+					<Image
+						src={product?.variations?.[selected]?.image}
+						className="w-[520px] h-[600px]"
+						width={520}
+						height={600}
+						alt="Product"
+					/>
+
 					<div className="flex flex-col gap-4">
 						<H1 className="!text-5xl mt-[37px]">{product?.name}</H1>
-						<div className="flex gap-3 w-[80px] h-[100px]">
+						<div className="flex gap-3">
 							{product?.variations.map((item, index) => (
-								<Image
-									key={item.id}
-									className={clsx(
-										"border cursor-pointer rounded-[3px] max-w-[80px] max-h-[100px] object-contain",
-										selected == index ? "border-primary" : "border-gray",
-									)}
-									onClick={() => setSelected(index)}
-									src={item?.image}
-									width={80}
-									height={100}
-									alt="Product"
-								/>
+								<div key={item.id}>
+									<Image
+										className={clsx(
+											"border cursor-pointer rounded-[3px] w-[80px] h-[100px] p-1",
+											selected === index ? "border-primary" : "border-gray",
+										)}
+										onClick={() => setSelected(index)}
+										src={item?.image}
+										width={80}
+										height={100}
+										alt="Product"
+									/>
+								</div>
 							))}
 						</div>
 						<p className="text-xl">
@@ -129,6 +133,7 @@ export const Product: FC<Props> = ({ product }) => {
 				<div>
 					<H2>Отзывы:</H2>
 					<div className="mt-6 flex flex-col gap-3">
+						{isLoadingReviews && <ReviewSkeleton />}
 						{reviews?.reviews?.map((el) => (
 							<Review key={el?.id} review={el} />
 						))}

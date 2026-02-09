@@ -1,12 +1,12 @@
 "use client";
 
-import type { EmblaOptionsType } from "embla-carousel";
+import type {EmblaOptionsType} from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
-import type { IProduct } from "@/src/shared/api/types";
-import { ProductCard } from "@/src/shared/ui/ProductCard";
-import { Skeleton } from "@/src/shared/ui/Skeleton/Skeleton";
+import {ChevronLeft, ChevronRight} from "lucide-react";
+import {useCallback, useEffect, useState} from "react";
+import type {IProduct} from "@/src/shared/api/types";
+import {ProductCard} from "@/src/shared/ui/ProductCard";
+import {ProductCardSkeleton} from "@/src/shared/ui/ProductCard/ProductCardSkeleton";
 
 type Props = {
 	data?: IProduct[];
@@ -69,8 +69,8 @@ export const Slider = ({ data, slides = 6 }: Props) => {
 							</div>
 						))}
 					{!data?.length &&
-						Array.from({ length: 10 }).map((_, i) => (
-							<Skeleton key={i} className="h-[250px] w-[200px]" />
+						Array.from({ length: 10 }).map(() => (
+							<ProductCardSkeleton key={Math.random()} />
 						))}
 				</div>
 			</div>
