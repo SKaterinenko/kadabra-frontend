@@ -1,36 +1,32 @@
-import type {FC} from "react";
+import {useRouter} from "next/navigation";
+import type {Dispatch, FC, SetStateAction} from "react";
 import {RatingBar} from "@/src/page/Product/ui/RatingBar";
 import {RatingCardSkeleton} from "@/src/page/Product/ui/RatingCardSkeleton";
-import type {IRating} from "@/src/shared/api/types";
+import type {IRating, IUser} from "@/src/shared/api/types";
+import {Button} from "@/src/shared/ui/Button";
 import {H3} from "@/src/shared/ui/H3";
 import {StarRating} from "@/src/shared/ui/StarRating";
+import {getAverageRating} from "@/src/shared/utils/avgRating";
 
 interface Props {
 	ratings?: IRating;
+	isCreateReview: boolean;
+	setIsCreateReview: Dispatch<SetStateAction<boolean>>;
+	user?: IUser;
 }
 
-export const RatingCard: FC<Props> = ({ ratings }) => {
-	const getAverageRating = () => {
-		const totalRatings =
-			ratings &&
-			ratings?.rating_1 +
-				ratings?.rating_2 +
-				ratings?.rating_3 +
-				ratings?.rating_4 +
-				ratings?.rating_5;
-
-		if (totalRatings === 0) return 0;
-
-		const totalScore =
-			ratings &&
-			ratings?.rating_1 +
-				ratings?.rating_2 * 2 +
-				ratings?.rating_3 * 3 +
-				ratings?.rating_4 * 4 +
-				ratings?.rating_5 * 5;
-
-		if (totalScore && totalRatings) {
-			return totalScore / totalRatings;
+export const RatingCard: FC<Props> = ({
+	ratings,
+	isCreateReview,
+	setIsCreateReview,
+	user,
+}) => {
+	const router = useRouter();
+	const handleCreate = () => {
+		if (user) {
+			setIsCreateReview(!isCreateReview);
+		} else {
+			router.push("/login");
 		}
 	};
 
@@ -42,9 +38,9 @@ export const RatingCard: FC<Props> = ({ ratings }) => {
 			<div className="flex gap-3 mt-4">
 				<StarRating
 					size={16}
-					initialRating={Number(getAverageRating()?.toFixed(0))}
+					initialRating={Math.floor(getAverageRating(ratings) ?? 0)}
 				/>
-				<p>{getAverageRating()} из 5</p>
+				<p>{getAverageRating(ratings)} из 5</p>
 			</div>
 			<p>{ratings?.total_count} отзывов</p>
 			<div className="mt-5">
@@ -73,6 +69,15 @@ export const RatingCard: FC<Props> = ({ ratings }) => {
 					label="1 звезда"
 					rating={ratings?.rating_1}
 				/>
+			</div>
+			<div className="flex justify-center">
+				<Button
+					variant="outlined"
+					className="mt-6 w-[180px]!"
+					onClick={handleCreate}
+				>
+					{!isCreateReview ? "Оставить отзыв" : "Отменить отзыв"}
+				</Button>
 			</div>
 		</div>
 	);

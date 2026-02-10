@@ -1,9 +1,10 @@
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import type {FC} from "react";
+import {type FC, memo} from "react";
 import type {ICategory, IProduct} from "@/src/shared/api/types";
 import {StarRating} from "@/src/shared/ui/StarRating";
+import {getAverageRating} from "@/src/shared/utils/avgRating";
 import {ProductCardSkeleton} from "./ProductCardSkeleton";
 
 interface Props {
@@ -11,11 +12,13 @@ interface Props {
 	subTitle?: string;
 }
 
-export const ProductCard: FC<Props> = ({ data, subTitle }) => {
+export const ProductCard: FC<Props> = memo(({ data, subTitle }) => {
 	const prices =
 		"variations" in data && data.variations
 			? data.variations.map((el) => el.price)
 			: [];
+
+	const rating = "rating" in data && data.rating ? data.rating : undefined;
 
 	const minPrice = prices.length > 0 ? Math.min(...prices) : 0;
 	const maxPrice = prices.length > 0 ? Math.max(...prices) : 0;
@@ -41,7 +44,6 @@ export const ProductCard: FC<Props> = ({ data, subTitle }) => {
 				height={222}
 				alt="Product"
 			/>
-
 			<div className="py-[25px] px-[15px]">
 				{minPrice > 0 && (
 					<p className="font-bold">
@@ -51,7 +53,11 @@ export const ProductCard: FC<Props> = ({ data, subTitle }) => {
 				<p className={clsx(subTitle && "font-bold text-2xl")}>{data?.name}</p>
 				<div className="mt-[10px]">
 					{!subTitle ? (
-						<StarRating initialRating={2} editable={false} size={20} />
+						<StarRating
+							initialRating={Math.floor(getAverageRating(rating) ?? 0)}
+							editable={false}
+							size={20}
+						/>
 					) : (
 						<p className="text-primary!">{subTitle}</p>
 					)}
@@ -59,4 +65,4 @@ export const ProductCard: FC<Props> = ({ data, subTitle }) => {
 			</div>
 		</Link>
 	);
-};
+});

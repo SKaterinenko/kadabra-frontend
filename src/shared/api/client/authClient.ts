@@ -11,7 +11,7 @@ export function useRefresh() {
 	return useQuery({
 		queryKey: ["user"],
 		queryFn: getRefresh,
-		refetchInterval: 2 * 60 * 1000,
+		refetchInterval: 30 * 60 * 1000,
 		refetchIntervalInBackground: true,
 	});
 }

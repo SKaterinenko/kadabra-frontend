@@ -7,6 +7,7 @@ export interface IProduct {
 	short_description: string;
 	description: string;
 	variations: IVariation[];
+	rating: IRating;
 	created_at: string;
 	updated_at: string;
 }
@@ -107,8 +108,9 @@ export interface IUser {
 	last_name: string;
 	email: string;
 	birth_date: string;
-	phone_number: string;
+	phone_number?: string;
 	gender: "male" | "female";
+	avatar?: string;
 	created_at: string;
 	updated_at: string;
 }
@@ -162,4 +164,12 @@ export interface IReview {
 		last_name: string;
 		avatar?: string;
 	};
+}
+
+export type IReviewWithoutUser = Omit<IReview, "user">;
+
+export interface ICreateReview {
+	product_id: number;
+	description: string;
+	rating: number;
 }

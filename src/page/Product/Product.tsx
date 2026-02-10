@@ -5,9 +5,11 @@ import {type FC, useState} from "react";
 import {Footer} from "@/src/entities/Footer";
 import {Header} from "@/src/entities/Header";
 import {Slider} from "@/src/entities/Slider";
+import {CreateReview} from "@/src/features/CreateReview/CreateReview";
 import {RatingCard} from "@/src/page/Product/ui/RatingCard";
 import {Review} from "@/src/page/Product/ui/Review";
 import {ReviewSkeleton} from "@/src/page/Product/ui/ReviewSkeleton";
+import {useGetMe} from "@/src/shared/api/client/authClient";
 import {useGetProducts} from "@/src/shared/api/client/productsClient";
 import {useGetReviewsById} from "@/src/shared/api/client/reviews";
 import type {IProductWithParents} from "@/src/shared/api/types";
@@ -23,6 +25,8 @@ interface Props {
 }
 
 export const Product: FC<Props> = ({ product }) => {
+	const [isCreateReview, setIsCreateReview] = useState(false);
+	const { data: user } = useGetMe();
 	const href = `/category/${product?.product_type?.sub_category?.category?.slug}`;
 	const [selected, setSelected] = useState(0);
 	const [quantity, setQuantity] = useState(1);
@@ -83,26 +87,32 @@ export const Product: FC<Props> = ({ product }) => {
 						<H2>${price}</H2>
 						<p className="text-xl">{product?.short_description}</p>
 						<div className="flex justify-between gap-10 items-center text-xl">
-							<div className="flex gap-2">
+							<div className="flex gap-2 items-center">
 								<p>Количество:</p>
-								<div className="flex justify-between w-[75px]  border px-[8px] rounded-[3px]">
-									<span
-										className="cursor-pointer text-primary text-base"
-										onClick={() =>
-											setQuantity(quantity > 1 ? quantity - 1 : quantity)
-										}
+
+								<div className="flex justify-between w-[75px] border px-[8px] rounded-[3px] items-center">
+									<button
+										type="button"
+										className="cursor-pointer text-primary text-base disabled:opacity-50"
+										onClick={() => setQuantity((q) => (q > 1 ? q - 1 : q))}
+										aria-label="Decrease quantity"
 									>
 										-
-									</span>
+									</button>
+
 									<p className="text-base">{quantity}</p>
-									<span
+
+									<button
+										type="button"
 										className="cursor-pointer text-primary text-base"
-										onClick={() => setQuantity(quantity + 1)}
+										onClick={() => setQuantity((q) => q + 1)}
+										aria-label="Increase quantity"
 									>
 										+
-									</span>
+									</button>
 								</div>
 							</div>
+
 							<div className="flex gap-5">
 								<p>Стоимость: </p>
 								<span className="text-primary font-bold text-2xl">
@@ -128,7 +138,12 @@ export const Product: FC<Props> = ({ product }) => {
 						<H2>Характеристики товара:</H2>
 						<p>{product?.description}</p>
 					</div>
-					<RatingCard ratings={reviews?.ratings} />
+					<RatingCard
+						user={user}
+						ratings={reviews?.ratings}
+						setIsCreateReview={setIsCreateReview}
+						isCreateReview={isCreateReview}
+					/>
 				</div>
 				<div>
 					<H2>Отзывы:</H2>
@@ -137,6 +152,13 @@ export const Product: FC<Props> = ({ product }) => {
 						{reviews?.reviews?.map((el) => (
 							<Review key={el?.id} review={el} />
 						))}
+						{isCreateReview && (
+							<CreateReview
+								user={user}
+								productId={product?.id}
+								setIsCreateReview={setIsCreateReview}
+							/>
+						)}
 					</div>
 				</div>
 			</div>

@@ -6,17 +6,13 @@ import type * as React from "react";
 
 function RadixAvatar({
 	className,
-	size = "default",
 	...props
-}: React.ComponentProps<typeof AvatarPrimitive.Root> & {
-	size?: "default" | "sm" | "lg";
-}) {
+}: React.ComponentProps<typeof AvatarPrimitive.Root>) {
 	return (
 		<AvatarPrimitive.Root
 			data-slot="avatar"
-			data-size={size}
 			className={clsx(
-				"group/avatar relative flex size-8 shrink-0 overflow-hidden rounded-full select-none data-[size=lg]:size-10 data-[size=sm]:size-6",
+				"relative flex shrink-0 overflow-hidden rounded-full select-none",
 				className,
 			)}
 			{...props}

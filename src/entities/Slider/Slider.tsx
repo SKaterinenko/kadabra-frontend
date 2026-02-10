@@ -3,7 +3,7 @@
 import type {EmblaOptionsType} from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import {ChevronLeft, ChevronRight} from "lucide-react";
-import {useCallback, useEffect, useState} from "react";
+import {type FC, memo, useCallback, useEffect, useState} from "react";
 import type {IProduct} from "@/src/shared/api/types";
 import {ProductCard} from "@/src/shared/ui/ProductCard";
 import {ProductCardSkeleton} from "@/src/shared/ui/ProductCard/ProductCardSkeleton";
@@ -13,7 +13,7 @@ type Props = {
 	slides?: number;
 };
 
-export const Slider = ({ data, slides = 6 }: Props) => {
+export const Slider: FC<Props> = memo(({ data, slides = 6 }) => {
 	const options: EmblaOptionsType = {
 		loop: true,
 		dragFree: true,
@@ -27,11 +27,11 @@ export const Slider = ({ data, slides = 6 }: Props) => {
 	const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
 
 	const scrollPrev = useCallback(() => {
-		if (emblaApi) emblaApi.scrollPrev();
+		emblaApi?.scrollPrev();
 	}, [emblaApi]);
 
 	const scrollNext = useCallback(() => {
-		if (emblaApi) emblaApi.scrollNext();
+		emblaApi?.scrollNext();
 	}, [emblaApi]);
 
 	const onSelect = useCallback(() => {
@@ -53,7 +53,6 @@ export const Slider = ({ data, slides = 6 }: Props) => {
 
 	return (
 		<div className="relative w-full mx-auto px-4">
-			{/* Контейнер карусели */}
 			<div className="overflow-hidden p-[15px]" ref={emblaRef}>
 				<div
 					className="grid gap-4"
@@ -68,14 +67,16 @@ export const Slider = ({ data, slides = 6 }: Props) => {
 								<ProductCard data={slide} />
 							</div>
 						))}
+
 					{!data?.length &&
-						Array.from({ length: 10 }).map(() => (
+						Array.from({ length: 10 }).map((_) => (
 							<ProductCardSkeleton key={Math.random()} />
 						))}
 				</div>
 			</div>
 
 			<button
+				type="button"
 				className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 
           w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/90 shadow-lg flex items-center 
           justify-center hover:bg-white transition-all z-10
@@ -88,6 +89,7 @@ export const Slider = ({ data, slides = 6 }: Props) => {
 			</button>
 
 			<button
+				type="button"
 				className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 
           w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/90 shadow-lg flex items-center 
           justify-center hover:bg-white transition-all z-10
@@ -100,4 +102,4 @@ export const Slider = ({ data, slides = 6 }: Props) => {
 			</button>
 		</div>
 	);
-};
+});

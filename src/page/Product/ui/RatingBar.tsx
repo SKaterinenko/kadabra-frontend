@@ -9,7 +9,8 @@ interface Props {
 
 export const RatingBar: FC<Props> = ({ total, label, rating }) => {
 	const getPercent = (): number => {
-		return (rating || 0 / (total || 0)) * 100;
+		if (!rating || !total) return 0;
+		return (rating / total) * 100;
 	};
 
 	return (

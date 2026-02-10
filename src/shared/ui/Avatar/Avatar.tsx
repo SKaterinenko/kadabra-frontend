@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import Image from "next/image";
 import type {FC} from "react";
 import {AvatarFallback, AvatarImage, RadixAvatar} from "./RadixAvatar";
@@ -11,8 +10,8 @@ interface Props {
 
 export const Avatar: FC<Props> = ({ src, alt = "Avatar", size = 75 }) => {
 	return (
-		<RadixAvatar className={clsx(`w-[75px]! h-[75px]!`)}>
-			<AvatarImage src={src} alt={alt} className="grayscale" />
+		<RadixAvatar style={{ width: size, height: size }} className="bg-muted">
+			<AvatarImage src={src} alt={alt} className="object-cover" />
 			<AvatarFallback>
 				<Image src="/images/avatar.svg" alt="Avatar" fill />
 			</AvatarFallback>
