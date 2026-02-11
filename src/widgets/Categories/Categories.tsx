@@ -1,7 +1,7 @@
 import Link from "next/link";
-import {getCategories} from "@/src/shared/api/server/categories";
-import {H2} from "@/src/shared/ui/H2";
-import {ProductCard} from "@/src/shared/ui/ProductCard";
+import { getCategories } from "@/src/shared/api/server/categories";
+import { H2 } from "@/src/shared/ui/H2";
+import { ProductCard } from "@/src/shared/ui/ProductCard";
 
 export const Categories = async () => {
 	const categories = await getCategories();

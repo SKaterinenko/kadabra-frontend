@@ -1,11 +1,11 @@
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import {type FC, memo} from "react";
-import type {ICategory, IProduct} from "@/src/shared/api/types";
-import {StarRating} from "@/src/shared/ui/StarRating";
-import {getAverageRating} from "@/src/shared/utils/avgRating";
-import {ProductCardSkeleton} from "./ProductCardSkeleton";
+import { type FC, memo } from "react";
+import type { ICategory, IProduct } from "@/src/shared/api/types";
+import { StarRating } from "@/src/shared/ui/StarRating";
+import { getAverageRating } from "@/src/shared/utils/avgRating";
+import { ProductCardSkeleton } from "./ProductCardSkeleton";
 
 interface Props {
 	data: IProduct | ICategory;

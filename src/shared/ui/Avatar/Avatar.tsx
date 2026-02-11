@@ -1,6 +1,6 @@
 import Image from "next/image";
-import type {FC} from "react";
-import {AvatarFallback, AvatarImage, RadixAvatar} from "./RadixAvatar";
+import type { FC } from "react";
+import { AvatarFallback, AvatarImage, RadixAvatar } from "./RadixAvatar";
 
 interface Props {
 	src?: string;

@@ -1,7 +1,8 @@
 "use client";
 import clsx from "clsx";
 import Image from "next/image";
-import {type FC, useState} from "react";
+import {type FC, useMemo, useState} from "react";
+import Lightbox from "yet-another-react-lightbox";
 import {Footer} from "@/src/entities/Footer";
 import {Header} from "@/src/entities/Header";
 import {Slider} from "@/src/entities/Slider";
@@ -19,6 +20,7 @@ import {Button} from "@/src/shared/ui/Button";
 import {H1} from "@/src/shared/ui/H1";
 import {H2} from "@/src/shared/ui/H2";
 import {H3} from "@/src/shared/ui/H3";
+import "yet-another-react-lightbox/styles.css";
 
 interface Props {
 	product: IProductWithParents;
@@ -26,6 +28,8 @@ interface Props {
 
 export const Product: FC<Props> = ({ product }) => {
 	const [isCreateReview, setIsCreateReview] = useState(false);
+	const [lightboxOpen, setLightboxOpen] = useState(false);
+	const [lightboxIndex, setLightboxIndex] = useState(0);
 	const { data: user } = useGetMe();
 	const href = `/category/${product?.product_type?.sub_category?.category?.slug}`;
 	const [selected, setSelected] = useState(0);
@@ -36,6 +40,19 @@ export const Product: FC<Props> = ({ product }) => {
 		product?.id,
 		{},
 	);
+
+	// Подготавливаем слайды для Lightbox
+	const slides = useMemo(() => {
+		if (!product?.variations) return [];
+		return product.variations.map((variation) => ({
+			src: variation.image,
+		}));
+	}, [product?.variations]);
+
+	const handleMainImageClick = () => {
+		setLightboxIndex(selected);
+		setLightboxOpen(true);
+	};
 
 	return (
 		<main>
@@ -56,10 +73,11 @@ export const Product: FC<Props> = ({ product }) => {
 				<div className="flex gap-[155px] mt-3">
 					<Image
 						src={product?.variations?.[selected]?.image}
-						className="w-[520px] h-[600px]"
+						className="w-[520px] h-[600px] cursor-pointer hover:opacity-90 transition-opacity"
 						width={520}
 						height={600}
 						alt="Product"
+						onClick={handleMainImageClick}
 					/>
 
 					<div className="flex flex-col gap-4">
@@ -69,7 +87,7 @@ export const Product: FC<Props> = ({ product }) => {
 								<div key={item.id}>
 									<Image
 										className={clsx(
-											"border cursor-pointer rounded-[3px] w-[80px] h-[100px] p-1",
+											"border cursor-pointer rounded-[3px] w-[80px] h-[100px] p-1 hover:opacity-80 transition-opacity",
 											selected === index ? "border-primary" : "border-gray",
 										)}
 										onClick={() => setSelected(index)}
@@ -163,6 +181,18 @@ export const Product: FC<Props> = ({ product }) => {
 				</div>
 			</div>
 			<Footer />
+			<Lightbox
+				open={lightboxOpen}
+				close={() => setLightboxOpen(false)}
+				slides={slides}
+				index={lightboxIndex}
+				controller={{
+					closeOnBackdropClick: true,
+				}}
+				on={{
+					view: ({ index }) => setSelected(index), // Синхронизируем выбранную вариацию
+				}}
+			/>
 		</main>
 	);
 };

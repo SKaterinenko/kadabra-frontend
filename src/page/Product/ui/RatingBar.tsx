@@ -1,5 +1,5 @@
-import type {FC} from "react";
-import {Progress} from "@/src/shared/ui/Progress";
+import type { FC } from "react";
+import { Progress } from "@/src/shared/ui/Progress";
 
 interface Props {
 	total?: number;

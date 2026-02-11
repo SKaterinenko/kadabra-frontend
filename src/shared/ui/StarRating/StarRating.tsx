@@ -1,8 +1,8 @@
 // app/components/StarRating.tsx
 "use client";
 
-import {Star} from "lucide-react";
-import {memo, useState} from "react";
+import { Star } from "lucide-react";
+import { memo, useState } from "react";
 
 type StarRatingProps = {
 	maxStars?: number;

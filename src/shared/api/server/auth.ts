@@ -1,5 +1,9 @@
-import {API_URL} from "@/src/shared/api/config";
-import type {ILoginRequest, IRegisterRequest, IUser,} from "@/src/shared/api/types";
+import { API_URL } from "@/src/shared/api/config";
+import type {
+	ILoginRequest,
+	IRegisterRequest,
+	IUser,
+} from "@/src/shared/api/types";
 
 export async function login(credentials: ILoginRequest): Promise<IUser> {
 	const res = await fetch(`${API_URL}/auth/login`, {

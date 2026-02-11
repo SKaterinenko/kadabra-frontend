@@ -1,14 +1,14 @@
 "use client";
-import {zodResolver} from "@hookform/resolvers/zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
-import {useRouter} from "next/navigation";
-import {useForm} from "react-hook-form";
-import {useLogin} from "@/src/shared/api/client/authClient";
-import {Button} from "@/src/shared/ui/Button";
-import {H1} from "@/src/shared/ui/H1";
-import {Input} from "@/src/shared/ui/Input";
-import {type LoginFormData, loginSchema} from "./schema";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { useLogin } from "@/src/shared/api/client/authClient";
+import { Button } from "@/src/shared/ui/Button";
+import { H1 } from "@/src/shared/ui/H1";
+import { Input } from "@/src/shared/ui/Input";
+import { type LoginFormData, loginSchema } from "./schema";
 
 export const Login = () => {
 	const {

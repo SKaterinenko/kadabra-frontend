@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import {Progress as ProgressPrimitive} from "radix-ui";
+import { Progress as ProgressPrimitive } from "radix-ui";
 import type * as React from "react";
 
 function Progress({

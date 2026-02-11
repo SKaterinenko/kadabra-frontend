@@ -1,5 +1,5 @@
-import type {FC} from "react";
-import {Skeleton} from "@/src/shared/ui/Skeleton";
+import type { FC } from "react";
+import { Skeleton } from "@/src/shared/ui/Skeleton";
 
 export const ReviewSkeleton: FC = () => (
 	<div className="p-5 shadow flex gap-4">

@@ -2,7 +2,14 @@
 
 import clsx from "clsx";
 import type * as React from "react";
-import {RadixSelect, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue,} from "./RadixSelect";
+import {
+	RadixSelect,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "./RadixSelect";
 
 type SelectOption = {
 	label: React.ReactNode;

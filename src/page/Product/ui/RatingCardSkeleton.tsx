@@ -1,6 +1,6 @@
-import type {FC} from "react";
-import {H3} from "@/src/shared/ui/H3";
-import {Skeleton} from "@/src/shared/ui/Skeleton";
+import type { FC } from "react";
+import { H3 } from "@/src/shared/ui/H3";
+import { Skeleton } from "@/src/shared/ui/Skeleton";
 
 export const RatingCardSkeleton: FC = () => {
 	return (

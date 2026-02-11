@@ -1,6 +1,6 @@
-import type {NextRequest} from "next/server";
-import {NextResponse} from "next/server";
-import {getRefresh} from "@/src/shared/api/server/auth";
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import { getRefresh } from "@/src/shared/api/server/auth";
 
 export async function proxy(request: NextRequest) {
 	const accessToken = request.cookies.get("access_token");

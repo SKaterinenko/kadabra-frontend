@@ -1,12 +1,12 @@
-import {useRouter} from "next/navigation";
-import type {Dispatch, FC, SetStateAction} from "react";
-import {RatingBar} from "@/src/page/Product/ui/RatingBar";
-import {RatingCardSkeleton} from "@/src/page/Product/ui/RatingCardSkeleton";
-import type {IRating, IUser} from "@/src/shared/api/types";
-import {Button} from "@/src/shared/ui/Button";
-import {H3} from "@/src/shared/ui/H3";
-import {StarRating} from "@/src/shared/ui/StarRating";
-import {getAverageRating} from "@/src/shared/utils/avgRating";
+import { useRouter } from "next/navigation";
+import type { Dispatch, FC, SetStateAction } from "react";
+import { RatingBar } from "@/src/page/Product/ui/RatingBar";
+import { RatingCardSkeleton } from "@/src/page/Product/ui/RatingCardSkeleton";
+import type { IRating, IUser } from "@/src/shared/api/types";
+import { Button } from "@/src/shared/ui/Button";
+import { H3 } from "@/src/shared/ui/H3";
+import { StarRating } from "@/src/shared/ui/StarRating";
+import { getAverageRating } from "@/src/shared/utils/avgRating";
 
 interface Props {
 	ratings?: IRating;

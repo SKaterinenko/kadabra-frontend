@@ -1,21 +1,21 @@
 "use client";
 
-import {useRouter, useSearchParams} from "next/navigation";
-import {type FC, useEffect, useMemo, useState} from "react";
-import {Footer} from "@/src/entities/Footer";
-import {Header} from "@/src/entities/Header";
-import {useGetCategories} from "@/src/shared/api/client/categoriesClient";
-import {useGetManufacturersByCategorySlug} from "@/src/shared/api/client/manufacturersClient";
-import {useGetProducts} from "@/src/shared/api/client/productsClient";
-import {useGetProductsTypeByCategorySlug} from "@/src/shared/api/client/productsTypeClient";
-import type {ICategory} from "@/src/shared/api/types";
-import {Banner} from "@/src/shared/ui/Banner";
-import {H1} from "@/src/shared/ui/H1";
-import {PaginationComponents} from "@/src/shared/ui/Pagination";
-import {Skeleton} from "@/src/shared/ui/Skeleton/Skeleton";
-import {Filters} from "@/src/widgets/Filters";
-import {ProductsGrid} from "@/src/widgets/ProductsGrid";
-import {PromotionClient} from "@/src/widgets/Promotion/PromotionClient";
+import { useRouter, useSearchParams } from "next/navigation";
+import { type FC, useEffect, useMemo, useState } from "react";
+import { Footer } from "@/src/entities/Footer";
+import { Header } from "@/src/entities/Header";
+import { useGetCategories } from "@/src/shared/api/client/categoriesClient";
+import { useGetManufacturersByCategorySlug } from "@/src/shared/api/client/manufacturersClient";
+import { useGetProducts } from "@/src/shared/api/client/productsClient";
+import { useGetProductsTypeByCategorySlug } from "@/src/shared/api/client/productsTypeClient";
+import type { ICategory } from "@/src/shared/api/types";
+import { Banner } from "@/src/shared/ui/Banner";
+import { H1 } from "@/src/shared/ui/H1";
+import { PaginationComponents } from "@/src/shared/ui/Pagination";
+import { Skeleton } from "@/src/shared/ui/Skeleton/Skeleton";
+import { Filters } from "@/src/widgets/Filters";
+import { ProductsGrid } from "@/src/widgets/ProductsGrid";
+import { PromotionClient } from "@/src/widgets/Promotion/PromotionClient";
 
 interface Props {
 	category?: ICategory;

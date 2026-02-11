@@ -1,5 +1,11 @@
-import {useMutation, useQuery} from "@tanstack/react-query";
-import {getMe, getRefresh, login, logout, register,} from "@/src/shared/api/server/auth";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+	getMe,
+	getRefresh,
+	login,
+	logout,
+	register,
+} from "@/src/shared/api/server/auth";
 
 export function useLogin() {
 	return useMutation({

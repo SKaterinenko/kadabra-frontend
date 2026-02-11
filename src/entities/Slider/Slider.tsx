@@ -1,12 +1,12 @@
 "use client";
 
-import type {EmblaOptionsType} from "embla-carousel";
+import type { EmblaOptionsType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
-import {ChevronLeft, ChevronRight} from "lucide-react";
-import {type FC, memo, useCallback, useEffect, useState} from "react";
-import type {IProduct} from "@/src/shared/api/types";
-import {ProductCard} from "@/src/shared/ui/ProductCard";
-import {ProductCardSkeleton} from "@/src/shared/ui/ProductCard/ProductCardSkeleton";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { type FC, memo, useCallback, useEffect, useState } from "react";
+import type { IProduct } from "@/src/shared/api/types";
+import { ProductCard } from "@/src/shared/ui/ProductCard";
+import { ProductCardSkeleton } from "@/src/shared/ui/ProductCard/ProductCardSkeleton";
 
 type Props = {
 	data?: IProduct[];

@@ -1,10 +1,20 @@
 "use client";
 
-import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {type Dispatch, type FC, type SetStateAction, useCallback, useEffect,} from "react";
-import type {ICategory, IManufacturer, IProductsTypeByCategory,} from "@/src/shared/api/types";
-import {Skeleton} from "@/src/shared/ui/Skeleton/Skeleton";
-import {FilterItem} from "./FiltersItem";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import {
+	type Dispatch,
+	type FC,
+	type SetStateAction,
+	useCallback,
+	useEffect,
+} from "react";
+import type {
+	ICategory,
+	IManufacturer,
+	IProductsTypeByCategory,
+} from "@/src/shared/api/types";
+import { Skeleton } from "@/src/shared/ui/Skeleton/Skeleton";
+import { FilterItem } from "./FiltersItem";
 
 interface FiltersState {
 	categories: number[];

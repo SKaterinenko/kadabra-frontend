@@ -1,7 +1,7 @@
 import Link from "next/link";
-import {Slider} from "@/src/entities/Slider";
-import {getProducts} from "@/src/shared/api/server/products";
-import {H2} from "@/src/shared/ui/H2";
+import { Slider } from "@/src/entities/Slider";
+import { getProducts } from "@/src/shared/api/server/products";
+import { H2 } from "@/src/shared/ui/H2";
 
 export const BestOfMonth = async () => {
 	const { data: products } = await getProducts({});

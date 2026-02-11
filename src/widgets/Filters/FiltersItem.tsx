@@ -1,5 +1,5 @@
-import {memo} from "react";
-import {Checkbox} from "@/src/shared/ui/Checkbox";
+import { memo } from "react";
+import { Checkbox } from "@/src/shared/ui/Checkbox";
 
 export const FilterItem = memo(
 	({

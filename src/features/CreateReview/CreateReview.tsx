@@ -1,14 +1,18 @@
-import {zodResolver} from "@hookform/resolvers/zod";
-import type {Dispatch, FC, SetStateAction} from "react";
-import {Controller, useForm} from "react-hook-form";
-import {type ReviewFormData, reviewSchema,} from "@/src/features/CreateReview/schema";
-import {useCreateReview} from "@/src/shared/api/client/reviews";
-import type {IUser} from "@/src/shared/api/types";
-import {Avatar} from "@/src/shared/ui/Avatar";
-import {Button} from "@/src/shared/ui/Button";
-import {H3} from "@/src/shared/ui/H3";
-import {StarRating} from "@/src/shared/ui/StarRating";
-import {Textarea} from "@/src/shared/ui/Textarea";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { type Dispatch, type FC, type SetStateAction, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import {
+	type ReviewFormData,
+	reviewSchema,
+} from "@/src/features/CreateReview/schema";
+import { useCreateReview } from "@/src/shared/api/client/reviews";
+import type { IUser } from "@/src/shared/api/types";
+import { Avatar } from "@/src/shared/ui/Avatar";
+import { Button } from "@/src/shared/ui/Button";
+import { H3 } from "@/src/shared/ui/H3";
+import { Input } from "@/src/shared/ui/Input";
+import { StarRating } from "@/src/shared/ui/StarRating";
+import { Textarea } from "@/src/shared/ui/Textarea";
 
 interface Props {
 	user?: IUser;
@@ -21,6 +25,7 @@ export const CreateReview: FC<Props> = ({
 	productId,
 	setIsCreateReview,
 }) => {
+	const [files, setFiles] = useState<File[]>([]);
 	const {
 		register,
 		handleSubmit,
@@ -35,11 +40,13 @@ export const CreateReview: FC<Props> = ({
 		createReview(
 			{
 				product_id: productId,
+				images: files,
 				...data,
 			},
 			{
 				onSuccess: () => {
 					setIsCreateReview(false);
+					setFiles([]);
 				},
 			},
 		);
@@ -75,6 +82,11 @@ export const CreateReview: FC<Props> = ({
 							{errors.description.message}
 						</p>
 					)}
+					<Input
+						fileUpload
+						maxFiles={3}
+						onFilesChange={(files) => setFiles(files)}
+					/>
 				</div>
 			</div>
 			<div className="flex justify-center">

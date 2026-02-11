@@ -1,4 +1,4 @@
-import type {IRating} from "@/src/shared/api/types";
+import type { IRating } from "@/src/shared/api/types";
 
 export const getAverageRating = (ratings?: IRating) => {
 	const totalRatings =

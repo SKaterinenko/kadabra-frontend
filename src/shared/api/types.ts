@@ -172,4 +172,5 @@ export interface ICreateReview {
 	product_id: number;
 	description: string;
 	rating: number;
+	images?: File[];
 }
