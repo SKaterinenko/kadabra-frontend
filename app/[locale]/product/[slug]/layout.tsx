@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
-import "../globals.css";
+import type {Metadata} from "next";
+import "../../../globals.css";
 
 export const metadata: Metadata = {
-	title: "Best of month Kadabra",
+	title: "Kadabra",
 	description: "Pet project by SKaterinenko",
 };
 
-export default function BestOfMothLayout({
+export default function ProductPageLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;

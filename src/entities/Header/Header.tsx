@@ -3,9 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { useGetCategories } from "@/src/shared/api/client/categoriesClient";
-import { Input } from "@/src/shared/ui/Input/Input";
-import { Skeleton } from "@/src/shared/ui/Skeleton/Skeleton";
+import {useGetCategories} from "@/src/shared/api/client/categoriesClient";
+import {Input} from "@/src/shared/ui/Input/Input";
+import {LangSwitcher} from "@/src/shared/ui/LangSwitcher";
+import {Skeleton} from "@/src/shared/ui/Skeleton/Skeleton";
 
 export const Header = () => {
 	const { data: categories } = useGetCategories();
@@ -43,7 +44,7 @@ export const Header = () => {
 						<Link href="/profile">
 							<Image src="/images/user.svg" width={26} height={28} alt="User" />
 						</Link>
-						<p>ozb</p>
+						<LangSwitcher />
 					</div>
 				</div>
 				<div className="flex mt-[30px] justify-between w-[1058px]">

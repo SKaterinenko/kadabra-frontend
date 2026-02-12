@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import {type FC, useState} from "react";
+import { type FC, useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import type {IReview} from "@/src/shared/api/types";
-import {Avatar} from "@/src/shared/ui/Avatar";
-import {StarRating} from "@/src/shared/ui/StarRating";
+import type { IReview } from "@/src/shared/api/types";
+import { Avatar } from "@/src/shared/ui/Avatar";
+import { StarRating } from "@/src/shared/ui/StarRating";
 
 interface Props {
 	review: IReview;
