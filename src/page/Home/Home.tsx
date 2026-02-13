@@ -8,12 +8,9 @@ import {PromotionServer} from "@/src/widgets/Promotion/PromotionServer";
 import {TelegramBanner} from "@/src/widgets/TelegramBanner";
 
 export const Home = () => {
-	// const t = useTranslations("home");
-
 	return (
 		<main>
 			<Header />
-			{/*<h1>{t("title")}</h1>*/}
 			<Banner path="/images/banner1.jpg" />
 			<div className="container">
 				<div className="mt-[90px] flex flex-col gap-[50px]">

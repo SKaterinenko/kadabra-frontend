@@ -1,7 +1,9 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
+import {useTranslations} from "next-intl";
 import React from "react";
 import {useGetCategories} from "@/src/shared/api/client/categoriesClient";
 import {Input} from "@/src/shared/ui/Input/Input";
@@ -10,12 +12,13 @@ import {Skeleton} from "@/src/shared/ui/Skeleton/Skeleton";
 
 export const Header = () => {
 	const { data: categories } = useGetCategories();
+	const t = useTranslations();
 
 	return (
 		<header className="shadow">
 			<div className="bg-amber-300 text-center">
 				<h2>
-					Сайт пет-проект backend + frontend by{" "}
+					{t("petProject")} backend + frontend by{" "}
 					<Link
 						className="text-blue-400"
 						href="https://github.com/SKaterinenko/kadabra-frontend"
@@ -35,7 +38,7 @@ export const Header = () => {
 								alt="Logo"
 							/>
 						</Link>
-						<Input placeholder="Поиск товаров:" width={790} search />
+						<Input placeholder={t("searchProducts")} width={790} search />
 					</div>
 					<div className="flex gap-8 items-center">
 						<Link href="/cart">
@@ -49,7 +52,7 @@ export const Header = () => {
 				</div>
 				<div className="flex mt-[30px] justify-between w-[1058px]">
 					<Link href="/best-of-month" className="text-xl">
-						Лучшее за месяц
+						{t("bestOfMonth")}
 					</Link>
 					{!!categories?.length &&
 						categories?.slice(0, 5)?.map((item) => (

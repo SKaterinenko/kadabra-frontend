@@ -1,7 +1,10 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
+"use client";
 import clsx from "clsx";
 import Image from "next/image";
-import { forwardRef, useState } from "react";
-import type { FieldError } from "react-hook-form";
+import {useTranslations} from "next-intl";
+import {forwardRef, useState} from "react";
+import type {FieldError} from "react-hook-form";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 	placeholder?: string;
@@ -32,6 +35,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
 		},
 		ref,
 	) => {
+		const t = useTranslations();
 		const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
 		const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,15 +65,15 @@ export const Input = forwardRef<HTMLInputElement, Props>(
 					<label className="cursor-pointer">
 						<div
 							className={clsx(
-								"shadow py-[7px] px-6 rounded-[5px] border-2 border-dashed border-gray-300 hover:border-primary transition-colors text-center",
+								"rounded-[5px] border-2 border-gray-300 border-dashed px-6 py-[7px] text-center shadow transition-colors hover:border-primary",
 								error && "border-red-500",
 								classNameInput,
 							)}
 						>
 							<span className="text-gray-600">
 								{selectedFiles.length > 0
-									? `Выбрано файлов: ${selectedFiles.length}`
-									: "Выберите файлы (PNG, JPEG, макс. 3)"}
+									? `${t("selectedFiles")}  ${selectedFiles.length}`
+									: t("selectFiles")}
 							</span>
 						</div>
 						<input
@@ -89,9 +93,9 @@ export const Input = forwardRef<HTMLInputElement, Props>(
 							{selectedFiles.map((file, index) => (
 								<div
 									key={index}
-									className="flex items-center justify-between bg-gray-100 p-2 rounded"
+									className="flex items-center justify-between rounded bg-gray-100 p-2"
 								>
-									<span className="text-sm truncate flex-1">{file.name}</span>
+									<span className="flex-1 truncate text-sm">{file.name}</span>
 									<button
 										type="button"
 										onClick={() => removeFile(index)}
@@ -118,7 +122,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
 					placeholder={placeholder}
 					style={{ width }}
 					className={clsx(
-						"shadow py-[7px] px-6 rounded-[5px] focus-visible:outline-primary disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-light-gray",
+						"rounded-[5px] px-6 py-[7px] shadow focus-visible:outline-primary disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-light-gray disabled:opacity-50",
 						search && "pr-12",
 						error && "border-red-500",
 						classNameInput,

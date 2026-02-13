@@ -1,4 +1,5 @@
 "use client";
+import clsx from "clsx";
 import {usePathname, useRouter} from "next/navigation";
 import {useLocale} from "next-intl";
 import {routing} from "@/src/i18n/routing";
@@ -15,15 +16,22 @@ export const LangSwitcher = () => {
 
 	return (
 		<div>
-			{routing.locales.map((lang) => (
-				<button
-					key={lang}
-					type="button"
-					onClick={() => switchLang(lang)}
-					style={{ fontWeight: locale === lang ? "bold" : "normal" }}
-				>
-					{lang.toUpperCase()}
-				</button>
+			{routing.locales.map((lang, index) => (
+				<span key={lang}>
+					<button
+						type="button"
+						onClick={() => switchLang(lang)}
+						className={clsx(
+							"cursor-pointer",
+							locale === lang ? "font-bold text-primary" : "font-normal",
+						)}
+					>
+						{lang.toUpperCase()}
+					</button>
+					{index < routing.locales.length - 1 && (
+						<span className="mx-1">/</span>
+					)}
+				</span>
 			))}
 		</div>
 	);

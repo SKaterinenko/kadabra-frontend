@@ -1,8 +1,7 @@
-// app/components/StarRating.tsx
 "use client";
 
-import { Star } from "lucide-react";
-import { memo, useState } from "react";
+import {Star} from "lucide-react";
+import {memo, useState} from "react";
 
 type StarRatingProps = {
 	maxStars?: number;
@@ -69,9 +68,7 @@ export const StarRating = memo(
 							onMouseEnter={() => handleMouseEnter(index)}
 							onMouseLeave={handleMouseLeave}
 							disabled={!editable}
-							className={`
-              transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary
-              ${
+							className={`transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
 								editable
 									? "cursor-pointer hover:scale-110 active:scale-95"
 									: "cursor-default"
@@ -91,9 +88,7 @@ export const StarRating = memo(
 										? "var(--color-primary)"
 										: "var(--color-primary)"
 								}
-								className={`
-                transition-all duration-200
-                ${isStarFilled(index) ? "drop-shadow-lg" : ""}
+								className={`transition-all duration-200 ${isStarFilled(index) ? "drop-shadow-lg" : ""}
               `}
 							/>
 						</button>

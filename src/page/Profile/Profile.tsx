@@ -1,11 +1,13 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { Footer } from "@/src/entities/Footer";
-import { Header } from "@/src/entities/Header";
-import { useLogout } from "@/src/shared/api/client/authClient";
-import { Button } from "@/src/shared/ui/Button";
+import {useRouter} from "next/navigation";
+import {useTranslations} from "next-intl";
+import {Footer} from "@/src/entities/Footer";
+import {Header} from "@/src/entities/Header";
+import {useLogout} from "@/src/shared/api/client/authClient";
+import {Button} from "@/src/shared/ui/Button";
 
 export const Profile = () => {
+	const t = useTranslations();
 	const { mutate: logout, isPending, isSuccess } = useLogout();
 	const router = useRouter();
 
@@ -21,9 +23,9 @@ export const Profile = () => {
 		<main>
 			<Header />
 			<div className="container mt-10! min-h-screen">
-				<h1>Profile</h1>
+				<h1>{t("personalArea")}</h1>
 				<Button disabled={isPending} onClick={logoutFunc}>
-					Logout
+					{t("logout")}
 				</Button>
 			</div>
 			<Footer />

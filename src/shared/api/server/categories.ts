@@ -32,7 +32,7 @@ export async function getCategoryBySlug(
 		headers: { "Accept-Language": locale },
 	});
 	if (!res.ok) {
-		throw new Error("Failed to fetch category");
+		throw new Error("Failed to fetch category by slug");
 	}
 	return res.json();
 }

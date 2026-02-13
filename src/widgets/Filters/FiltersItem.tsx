@@ -1,5 +1,5 @@
-import { memo } from "react";
-import { Checkbox } from "@/src/shared/ui/Checkbox";
+import {memo} from "react";
+import {Checkbox} from "@/src/shared/ui/Checkbox";
 
 export const FilterItem = memo(
 	({
@@ -13,7 +13,7 @@ export const FilterItem = memo(
 		checked: boolean;
 		onToggle: () => void;
 	}) => (
-		<div className="flex gap-2 items-center">
+		<div className="flex items-center gap-2">
 			<Checkbox id={id} checked={checked} onCheckedChange={onToggle} />
 			<label htmlFor={id}>{label}</label>
 		</div>

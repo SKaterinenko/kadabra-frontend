@@ -1,21 +1,22 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { type FC, useEffect, useMemo, useState } from "react";
-import { Footer } from "@/src/entities/Footer";
-import { Header } from "@/src/entities/Header";
-import { useGetCategories } from "@/src/shared/api/client/categoriesClient";
-import { useGetManufacturersByCategorySlug } from "@/src/shared/api/client/manufacturersClient";
-import { useGetProducts } from "@/src/shared/api/client/productsClient";
-import { useGetProductsTypeByCategorySlug } from "@/src/shared/api/client/productsTypeClient";
-import type { ICategory } from "@/src/shared/api/types";
-import { Banner } from "@/src/shared/ui/Banner";
-import { H1 } from "@/src/shared/ui/H1";
-import { PaginationComponents } from "@/src/shared/ui/Pagination";
-import { Skeleton } from "@/src/shared/ui/Skeleton/Skeleton";
-import { Filters } from "@/src/widgets/Filters";
-import { ProductsGrid } from "@/src/widgets/ProductsGrid";
-import { PromotionClient } from "@/src/widgets/Promotion/PromotionClient";
+import {useRouter, useSearchParams} from "next/navigation";
+import {useTranslations} from "next-intl";
+import {type FC, useEffect, useMemo, useState} from "react";
+import {Footer} from "@/src/entities/Footer";
+import {Header} from "@/src/entities/Header";
+import {useGetCategories} from "@/src/shared/api/client/categoriesClient";
+import {useGetManufacturersByCategorySlug} from "@/src/shared/api/client/manufacturersClient";
+import {useGetProducts} from "@/src/shared/api/client/productsClient";
+import {useGetProductsTypeByCategorySlug} from "@/src/shared/api/client/productsTypeClient";
+import type {ICategory} from "@/src/shared/api/types";
+import {Banner} from "@/src/shared/ui/Banner";
+import {H1} from "@/src/shared/ui/H1";
+import {PaginationComponents} from "@/src/shared/ui/Pagination";
+import {Skeleton} from "@/src/shared/ui/Skeleton/Skeleton";
+import {Filters} from "@/src/widgets/Filters";
+import {ProductsGrid} from "@/src/widgets/ProductsGrid";
+import {PromotionClient} from "@/src/widgets/Promotion/PromotionClient";
 
 interface Props {
 	category?: ICategory;
@@ -31,6 +32,7 @@ interface FiltersState {
 const LIMIT = 20;
 
 export const Category: FC<Props> = ({ category, name }) => {
+	const t = useTranslations();
 	const router = useRouter();
 	const searchParams = useSearchParams();
 
@@ -94,9 +96,9 @@ export const Category: FC<Props> = ({ category, name }) => {
 				<div className="mt-[90px] flex flex-col gap-[50px]">
 					<H1>{category?.name || name}</H1>
 					<div className="flex gap-1">
-						Показано {offset + 1}-{LIMIT * page} результатов из{" "}
+						{t("shown")} {offset + 1}-{LIMIT * page} {t("results")}{" "}
 						{products?.total_count ?? (
-							<Skeleton className="h-[25px] w-[20px] mb-2" />
+							<Skeleton className="mb-2 h-[25px] w-[20px]" />
 						)}
 					</div>
 					<div className="grid grid-cols-[15%_85%] gap-5">

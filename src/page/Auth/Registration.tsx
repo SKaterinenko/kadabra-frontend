@@ -1,17 +1,19 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
+import {zodResolver} from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Controller, useForm } from "react-hook-form";
-import { useRegister } from "@/src/shared/api/client/authClient";
-import { Button } from "@/src/shared/ui/Button";
-import { H1 } from "@/src/shared/ui/H1";
-import { Input } from "@/src/shared/ui/Input";
-import { Select } from "@/src/shared/ui/Select";
-import { type RegisterFormData, registerSchema } from "./schema";
+import {useRouter} from "next/navigation";
+import {useTranslations} from "next-intl";
+import {Controller, useForm} from "react-hook-form";
+import {useRegister} from "@/src/shared/api/client/authClient";
+import {Button} from "@/src/shared/ui/Button";
+import {H1} from "@/src/shared/ui/H1";
+import {Input} from "@/src/shared/ui/Input";
+import {Select} from "@/src/shared/ui/Select";
+import {type RegisterFormData, registerSchema} from "./schema";
 
 export const Registration = () => {
+	const t = useTranslations();
 	const {
 		register,
 		handleSubmit,
@@ -36,7 +38,7 @@ export const Registration = () => {
 
 	return (
 		<section className="flex">
-			<div className="w-1/2 h-120vh relative">
+			<div className="relative h-120vh w-1/2">
 				<Image
 					src="/images/authBanner2.png"
 					alt="Photo"
@@ -46,10 +48,10 @@ export const Registration = () => {
 				/>
 			</div>
 
-			<div className="w-1/2 flex items-center justify-center">
-				<div className="shadow p-[45px] w-[520px]">
-					<div className="flex justify-between items-center">
-						<H1 className="!text-4xl">Регистрация</H1>
+			<div className="flex w-1/2 items-center justify-center">
+				<div className="w-[520px] p-[45px] shadow">
+					<div className="flex items-center justify-between">
+						<H1 className="!text-4xl">{t("registration")}</H1>
 						<Link href="/">
 							<Image
 								src="/images/logo.svg"
@@ -65,7 +67,7 @@ export const Registration = () => {
 						className="mt-10 flex flex-col gap-4"
 					>
 						<div className="flex flex-col gap-2">
-							<p>Имя:</p>
+							<p>{t("name")}</p>
 							<Input
 								{...register("first_name")}
 								className="w-full"
@@ -80,7 +82,7 @@ export const Registration = () => {
 						</div>
 
 						<div className="flex flex-col gap-2">
-							<p>Фамилия:</p>
+							<p>{t("lastName")}</p>
 							<Input
 								{...register("last_name")}
 								className="w-full"
@@ -95,7 +97,7 @@ export const Registration = () => {
 						</div>
 
 						<div className="flex flex-col gap-2">
-							<p>Дата рождения:</p>
+							<p>{t("dateBirth")}</p>
 							<Input
 								type="date"
 								{...register("birth_date")}
@@ -110,7 +112,7 @@ export const Registration = () => {
 						</div>
 
 						<div className="flex flex-col gap-2">
-							<p>Номер телефона:</p>
+							<p>{t("phone")}</p>
 							<Input
 								{...register("phone_number")}
 								className="w-full"
@@ -124,7 +126,7 @@ export const Registration = () => {
 							)}
 						</div>
 						<div className="flex flex-col gap-2">
-							<p>Почта:</p>
+							<p>{t("email")}</p>
 							<Input
 								{...register("email")}
 								className="w-full"
@@ -137,7 +139,7 @@ export const Registration = () => {
 						</div>
 
 						<div className="flex flex-col gap-2">
-							<p>Пол:</p>
+							<p>{t("gender")}</p>
 							<Controller
 								name="gender"
 								control={control}
@@ -161,8 +163,8 @@ export const Registration = () => {
 
 						<div className="flex flex-col gap-2">
 							<div className="flex justify-between">
-								<p>Пароль:</p>
-								<p className="!text-gray cursor-pointer">Минимум 4 символа</p>
+								<p>{t("password")}</p>
+								<p className="!text-gray cursor-pointer">{t("minPassword")}</p>
 							</div>
 
 							<Input
@@ -179,7 +181,7 @@ export const Registration = () => {
 							)}
 
 							<div className="flex justify-between">
-								<p>Повторите пароль:</p>
+								<p>{t("repeatPassword")}</p>
 							</div>
 							<Input
 								type="password"
@@ -196,17 +198,17 @@ export const Registration = () => {
 						</div>
 
 						<Button type="submit" disabled={isPending}>
-							{isPending ? "Регистрация..." : "Регистрация"}
+							{isPending ? `${t("registration")}...` : t("registration")}
 						</Button>
 
 						{isError && (
 							<p className="!text-red-500 text-lg">
-								{error?.message || "Ошибка входа"}
+								{error?.message || t("enterError")}
 							</p>
 						)}
 
 						<p className="!text-gray flex justify-end">
-							<Link href="/login">Уже есть аккаунт? Войдите</Link>
+							<Link href="/login">{t("haveAcc")}</Link>
 						</p>
 					</form>
 				</div>

@@ -1,20 +1,12 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import {
-	type Dispatch,
-	type FC,
-	type SetStateAction,
-	useCallback,
-	useEffect,
-} from "react";
-import type {
-	ICategory,
-	IManufacturer,
-	IProductsTypeByCategory,
-} from "@/src/shared/api/types";
-import { Skeleton } from "@/src/shared/ui/Skeleton/Skeleton";
-import { FilterItem } from "./FiltersItem";
+import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {useTranslations} from "next-intl";
+import {type Dispatch, type FC, type SetStateAction, useCallback, useEffect,} from "react";
+import type {ICategory, IManufacturer, IProductsTypeByCategory,} from "@/src/shared/api/types";
+import {Skeleton} from "@/src/shared/ui/Skeleton/Skeleton";
+import {FilterItem} from "./FiltersItem";
 
 interface FiltersState {
 	categories: number[];
@@ -37,6 +29,7 @@ export const Filters: FC<Props> = ({
 	filters,
 	setFilters,
 }) => {
+	const t = useTranslations();
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
@@ -55,7 +48,6 @@ export const Filters: FC<Props> = ({
 		});
 	}, [searchParams, setFilters]);
 
-	// ✅ Мемоизируем updateFilter
 	const updateFilter = useCallback(
 		(key: keyof FiltersState, id: number, checked: boolean) => {
 			const updated = checked
@@ -106,9 +98,9 @@ export const Filters: FC<Props> = ({
 	);
 
 	return (
-		<div className="p-5 shadow max-w-[250px]">
+		<div className="max-w-[250px] p-5 shadow">
 			{/* Categories */}
-			<h3 className="text-[18px] font-bold">Категории</h3>
+			<h3 className="font-bold text-[18px]">{t("categories")}</h3>
 			<div className="mt-3 flex flex-col gap-2">
 				{categories?.map((el) => (
 					<FilterItem
@@ -142,12 +134,12 @@ export const Filters: FC<Props> = ({
 			{!categories?.length &&
 				!productsType?.length &&
 				Array.from({ length: 3 }).map((_, i) => (
-					<Skeleton key={i} className="h-[25px] w-[180px] mb-2" />
+					<Skeleton key={i} className="mb-2 h-[25px] w-[180px]" />
 				))}
 
 			{!categories?.length && (
 				<>
-					<h3 className="text-[18px] font-bold mt-4">Бренды</h3>
+					<h3 className="mt-4 font-bold text-[18px]">{t("brands")}</h3>
 					<div className="mt-3 flex flex-col gap-2">
 						{manufacturers?.map((item) => (
 							<FilterItem
@@ -162,7 +154,7 @@ export const Filters: FC<Props> = ({
 
 					{!manufacturers?.length &&
 						Array.from({ length: 3 }).map((_, i) => (
-							<Skeleton key={i} className="h-[25px] w-[180px] mb-2" />
+							<Skeleton key={i} className="mb-2 h-[25px] w-[180px]" />
 						))}
 				</>
 			)}

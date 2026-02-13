@@ -1,16 +1,19 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
+import {zodResolver} from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { useLogin } from "@/src/shared/api/client/authClient";
-import { Button } from "@/src/shared/ui/Button";
-import { H1 } from "@/src/shared/ui/H1";
-import { Input } from "@/src/shared/ui/Input";
-import { type LoginFormData, loginSchema } from "./schema";
+import {useRouter} from "next/navigation";
+import {useTranslations} from "next-intl";
+import {useForm} from "react-hook-form";
+import {useLogin} from "@/src/shared/api/client/authClient";
+import {Button} from "@/src/shared/ui/Button";
+import {H1} from "@/src/shared/ui/H1";
+import {Input} from "@/src/shared/ui/Input";
+import {type LoginFormData, loginSchema} from "./schema";
 
 export const Login = () => {
+	const t = useTranslations();
+
 	const {
 		register,
 		handleSubmit,
@@ -37,7 +40,7 @@ export const Login = () => {
 
 	return (
 		<section className="flex h-screen">
-			<div className="w-1/2 h-full relative">
+			<div className="relative h-full w-1/2">
 				<Image
 					src="/images/authBanner1.png"
 					alt="Photo"
@@ -47,10 +50,10 @@ export const Login = () => {
 				/>
 			</div>
 
-			<div className="w-1/2 flex items-center justify-center">
-				<div className="shadow p-[50px] w-[520px]">
-					<div className="flex justify-between items-center">
-						<H1 className="!text-4xl">Вход</H1>
+			<div className="flex w-1/2 items-center justify-center">
+				<div className="w-[520px] p-[50px] shadow">
+					<div className="flex items-center justify-between">
+						<H1 className="!text-4xl">{t("login")}</H1>
 						<Link href="/">
 							<Image
 								src="/images/logo.svg"
@@ -66,7 +69,7 @@ export const Login = () => {
 						className="mt-10 flex flex-col gap-4"
 					>
 						<div className="flex flex-col gap-2">
-							<p>Почта:</p>
+							<p>{t("email")}</p>
 							<Input
 								{...register("email")}
 								className="w-full"
@@ -80,8 +83,10 @@ export const Login = () => {
 
 						<div className="flex flex-col gap-2">
 							<div className="flex justify-between">
-								<p>Пароль:</p>
-								<p className="!text-gray cursor-pointer">Забыли пароль?</p>
+								<p>{t("password")}</p>
+								<p className="!text-gray cursor-pointer">
+									{t("forgotPassword")}
+								</p>
 							</div>
 
 							<Input
@@ -99,19 +104,17 @@ export const Login = () => {
 						</div>
 
 						<Button type="submit" disabled={isPending}>
-							{isPending ? "Входим..." : "Войти"}
+							{isPending ? t("signInLoad") : t("signIn")}
 						</Button>
 
 						{isError && (
 							<p className="!text-red-500 text-lg">
-								{error?.message || "Ошибка входа"}
+								{error?.message || t("enterError")}
 							</p>
 						)}
 
 						<p className="!text-gray flex justify-end">
-							<Link href="/registration">
-								Еще нет аккаунта? Зарегистрируйтесь
-							</Link>
+							<Link href="/registration">{t("noAcc")}</Link>
 						</p>
 					</form>
 				</div>

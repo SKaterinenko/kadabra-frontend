@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { type FC, useState } from "react";
+import {type FC, useState} from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import type { IReview } from "@/src/shared/api/types";
-import { Avatar } from "@/src/shared/ui/Avatar";
-import { StarRating } from "@/src/shared/ui/StarRating";
+import type {IReview} from "@/src/shared/api/types";
+import {Avatar} from "@/src/shared/ui/Avatar";
+import {StarRating} from "@/src/shared/ui/StarRating";
 
 interface Props {
 	review: IReview;
@@ -25,7 +25,7 @@ export const Review: FC<Props> = ({ review }) => {
 
 	return (
 		<>
-			<div className="p-5 shadow flex gap-4">
+			<div className="flex gap-4 p-5 shadow">
 				<div>
 					<Avatar src={review?.user?.avatar} />
 				</div>
@@ -47,7 +47,7 @@ export const Review: FC<Props> = ({ review }) => {
 								height={100}
 								src={el}
 								alt="Review image"
-								className="border rounded-[3px] border-gray cursor-pointer hover:opacity-80 transition-opacity"
+								className="cursor-pointer rounded-[3px] border border-gray transition-opacity hover:opacity-80"
 								onClick={() => handleImageClick(index)}
 							/>
 						))}

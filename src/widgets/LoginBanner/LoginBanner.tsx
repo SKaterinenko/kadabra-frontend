@@ -1,18 +1,20 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import type { FC } from "react";
-import { useGetMe } from "@/src/shared/api/client/authClient";
-import { Banner } from "@/src/shared/ui/Banner";
-import { Button } from "@/src/shared/ui/Button";
+import {useTranslations} from "next-intl";
+import type {FC} from "react";
+import {useGetMe} from "@/src/shared/api/client/authClient";
+import {Banner} from "@/src/shared/ui/Banner";
+import {Button} from "@/src/shared/ui/Button";
 
 export const LoginBanner: FC = () => {
 	const { data: user } = useGetMe();
+	const t = useTranslations();
 
 	return (
 		<section className="flex gap-[35px]">
 			{!user && (
-				<div className="shadow p-[30px] w-[520px] text-center items-center flex flex-col rounded-[3px]">
+				<div className="flex w-[520px] flex-col items-center rounded-[3px] p-[30px] text-center shadow">
 					<Image
 						className="mb-[27px] rounded-[3px]"
 						src="/images/userCheck.svg"
@@ -20,15 +22,15 @@ export const LoginBanner: FC = () => {
 						height={71}
 						alt="Hello"
 					/>
-					<h2 className="text-4xl font-bold">Добро пожаловать!</h2>
-					<p>Продолжайте покупки с нами</p>
-					<div className="flex gap-5 mt-5 w-full">
+					<h2 className="font-bold text-4xl">{t("welcome")}</h2>
+					<p>{t("purchases")}</p>
+					<div className="mt-5 flex w-full gap-5">
 						<Link href="/registration" className="w-full">
-							<Button>Регистрация</Button>
+							<Button>{t("registration")}</Button>
 						</Link>
 
 						<Link href="/login" className="w-full">
-							<Button variant="outlined">Вход</Button>
+							<Button variant="outlined">{t("login")}</Button>
 						</Link>
 					</div>
 				</div>

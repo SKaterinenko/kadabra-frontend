@@ -1,22 +1,26 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import {useTranslations} from "next-intl";
 
 export const Footer = () => {
+	const t = useTranslations();
+
 	return (
 		<footer className="container mt-10! py-10">
 			<Image src="/images/logo.svg" alt="logo" width={287} height={60} />
-			<div className="flex justify-between mt-[30px] w-full">
-				<div className="flex justify-between items-center gap-5">
+			<div className="mt-[30px] flex w-full justify-between">
+				<div className="flex items-center justify-between gap-5">
 					<Link href="/" className="text-xl">
-						Контакты
+						{t("contacts")}
 					</Link>
 					<span className="h-6 w-px bg-gray-300" />
 					<Link href="/" className="text-xl">
-						Telegram-канал
+						{t("telegramChanel")}
 					</Link>
 					<span className="h-6 w-px bg-gray-300" />
 					<Link href="/" className="text-xl">
-						Публичная оферта
+						{t("offer")}
 					</Link>
 				</div>
 				<p className="text-gray! text-xl">+100 123 45 56</p>

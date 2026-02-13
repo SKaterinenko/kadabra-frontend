@@ -1,12 +1,12 @@
 "use client";
 
-import type { EmblaOptionsType } from "embla-carousel";
+import type {EmblaOptionsType} from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { type FC, memo, useCallback, useEffect, useState } from "react";
-import type { IProduct } from "@/src/shared/api/types";
-import { ProductCard } from "@/src/shared/ui/ProductCard";
-import { ProductCardSkeleton } from "@/src/shared/ui/ProductCard/ProductCardSkeleton";
+import {ChevronLeft, ChevronRight} from "lucide-react";
+import {type FC, memo, useCallback, useEffect, useState} from "react";
+import type {IProduct} from "@/src/shared/api/types";
+import {ProductCard} from "@/src/shared/ui/ProductCard";
+import {ProductCardSkeleton} from "@/src/shared/ui/ProductCard/ProductCardSkeleton";
 
 type Props = {
 	data?: IProduct[];
@@ -52,7 +52,7 @@ export const Slider: FC<Props> = memo(({ data, slides = 6 }) => {
 	}, [emblaApi, onSelect]);
 
 	return (
-		<div className="relative w-full mx-auto px-4">
+		<div className="relative mx-auto w-full px-4">
 			<div className="overflow-hidden p-[15px]" ref={emblaRef}>
 				<div
 					className="grid gap-4"
@@ -77,28 +77,22 @@ export const Slider: FC<Props> = memo(({ data, slides = 6 }) => {
 
 			<button
 				type="button"
-				className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 
-          w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/90 shadow-lg flex items-center 
-          justify-center hover:bg-white transition-all z-10
-          ${prevBtnDisabled ? "opacity-30 cursor-not-allowed" : "hover:scale-110 active:scale-95"}`}
+				className={`absolute top-1/2 left-0 z-10 flex h-8 w-8 -translate-x-2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow-lg transition-all hover:bg-white md:h-10 md:w-10 md:-translate-x-4 ${prevBtnDisabled ? "opacity-30 cursor-not-allowed" : "hover:scale-110 active:scale-95"}`}
 				onClick={scrollPrev}
 				disabled={prevBtnDisabled}
 				aria-label="Previous slide"
 			>
-				<ChevronLeft className="w-4 h-4 md:w-5 md:h-5 text-gray-800" />
+				<ChevronLeft className="h-4 w-4 text-gray-800 md:h-5 md:w-5" />
 			</button>
 
 			<button
 				type="button"
-				className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 
-          w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/90 shadow-lg flex items-center 
-          justify-center hover:bg-white transition-all z-10
-          ${nextBtnDisabled ? "opacity-30 cursor-not-allowed" : "hover:scale-110 active:scale-95"}`}
+				className={`absolute top-1/2 right-0 z-10 flex h-8 w-8 translate-x-2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow-lg transition-all hover:bg-white md:h-10 md:w-10 md:translate-x-4 ${nextBtnDisabled ? "opacity-30 cursor-not-allowed" : "hover:scale-110 active:scale-95"}`}
 				onClick={scrollNext}
 				disabled={nextBtnDisabled}
 				aria-label="Next slide"
 			>
-				<ChevronRight className="w-4 h-4 md:w-5 md:h-5 text-gray-800" />
+				<ChevronRight className="h-4 w-4 text-gray-800 md:h-5 md:w-5" />
 			</button>
 		</div>
 	);
