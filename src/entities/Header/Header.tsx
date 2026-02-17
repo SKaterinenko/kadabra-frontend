@@ -18,10 +18,27 @@ export const Header = () => {
 		<header className="shadow">
 			<div className="bg-amber-300 text-center">
 				<h2>
-					{t("petProject")} backend + frontend by{" "}
+					{t("petProject")}{" "}
 					<Link
+						target="_blank"
+						className="text-blue-400"
+						href="https://github.com/SKaterinenko/kadabra-backend"
+					>
+						backend
+					</Link>{" "}
+					+{" "}
+					<Link
+						target="_blank"
 						className="text-blue-400"
 						href="https://github.com/SKaterinenko/kadabra-frontend"
+					>
+						frontend
+					</Link>{" "}
+					by{" "}
+					<Link
+						target="_blank"
+						className="text-blue-400"
+						href="https://github.com/SKaterinenko"
 					>
 						SKaterinenko
 					</Link>
