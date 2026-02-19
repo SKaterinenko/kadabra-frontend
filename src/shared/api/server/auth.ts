@@ -1,12 +1,8 @@
-import { API_URL } from "@/src/shared/api/config";
-import type {
-	ILoginRequest,
-	IRegisterRequest,
-	IUser,
-} from "@/src/shared/api/types";
+import type {ILoginRequest, IRegisterRequest, IUser,} from "@/src/shared/api/types";
+import {getApiUrl} from "../config";
 
 export async function login(credentials: ILoginRequest): Promise<IUser> {
-	const res = await fetch(`${API_URL}/auth/login`, {
+	const res = await fetch(`${getApiUrl()}/auth/login`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -25,7 +21,7 @@ export async function login(credentials: ILoginRequest): Promise<IUser> {
 }
 
 export async function getRefresh(): Promise<IUser> {
-	const res = await fetch(`${API_URL}/auth/refresh`, {
+	const res = await fetch(`${getApiUrl()}/auth/refresh`, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -43,7 +39,7 @@ export async function getRefresh(): Promise<IUser> {
 }
 
 export async function logout() {
-	const res = await fetch(`${API_URL}/auth/logout`, {
+	const res = await fetch(`${getApiUrl()}/auth/logout`, {
 		method: "POST",
 		credentials: "include",
 	});
@@ -58,7 +54,7 @@ export async function logout() {
 }
 
 export async function getMe(): Promise<IUser> {
-	const res = await fetch(`${API_URL}/me`, {
+	const res = await fetch(`${getApiUrl()}/me`, {
 		method: "GET",
 		credentials: "include",
 	});
@@ -73,7 +69,7 @@ export async function getMe(): Promise<IUser> {
 }
 
 export async function register(credentials: IRegisterRequest): Promise<IUser> {
-	const res = await fetch(`${API_URL}/auth/register`, {
+	const res = await fetch(`${getApiUrl()}/auth/register`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",

@@ -1,11 +1,11 @@
-import {API_URL} from "@/src/shared/api/config";
 import type {IProductsTypeByCategory} from "@/src/shared/api/types";
+import {getApiUrl} from "../config";
 
 export async function getProductsTypeByCategoryId(
 	id?: number,
 	locale?: string,
 ): Promise<IProductsTypeByCategory[]> {
-	const res = await fetch(`${API_URL}/products-type-by-category-id/${id}`, {
+	const res = await fetch(`${getApiUrl()}/products-type-by-category-id/${id}`, {
 		headers: { "Accept-Language": locale ?? "ru" },
 	});
 	if (!res.ok) {
@@ -18,9 +18,12 @@ export async function getProductsTypeByCategorySlug(
 	slug?: string,
 	locale?: string,
 ): Promise<IProductsTypeByCategory[]> {
-	const res = await fetch(`${API_URL}/products-type-by-category-slug/${slug}`, {
-		headers: { "Accept-Language": locale ?? "ru" },
-	});
+	const res = await fetch(
+		`${getApiUrl()}/products-type-by-category-slug/${slug}`,
+		{
+			headers: { "Accept-Language": locale ?? "ru" },
+		},
+	);
 	if (!res.ok) {
 		throw new Error("Failed to fetch products type");
 	}
