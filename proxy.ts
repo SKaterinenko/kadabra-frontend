@@ -19,8 +19,8 @@ export function proxy(request: NextRequest) {
 		pathnameWithoutLocale.startsWith(route),
 	);
 
-	// Если защищённый маршрут и нет access token или refresh → login
-	if (isProtectedRoute && (!accessToken || !refreshToken)) {
+	// Если защищённый маршрут и нет access token → login
+	if (isProtectedRoute && !accessToken) {
 		const loginUrl = new URL("/login", request.url);
 		loginUrl.searchParams.set("callbackUrl", pathname);
 		return NextResponse.redirect(loginUrl);
