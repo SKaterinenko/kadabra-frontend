@@ -1,6 +1,6 @@
 import type {ICreateReview, IReviewsResponse, IReviewWithoutUser, ReviewsFilters,} from "@/src/shared/api/types";
 import {buildQuery} from "@/src/shared/utils/buildQuery";
-import {getApiUrl} from "../config";
+import {API_URL} from "../config";
 
 export async function getReviewsById(
 	id: number,
@@ -9,8 +9,8 @@ export async function getReviewsById(
 ): Promise<IReviewsResponse> {
 	const query = buildQuery(filters);
 	const url = query
-		? `${getApiUrl()}/reviews/${id}?${query}`
-		: `${getApiUrl()}/reviews/${id}`;
+		? `${API_URL}/reviews/${id}?${query}`
+		: `${API_URL}/reviews/${id}`;
 
 	const res = await fetch(url, {
 		headers: { "Accept-Language": locale ?? "ru" },
@@ -38,7 +38,7 @@ export async function createReview(
 		});
 	}
 
-	const res = await fetch(`${getApiUrl()}/reviews`, {
+	const res = await fetch(`${API_URL}/reviews`, {
 		method: "POST",
 		credentials: "include",
 		body: formData,
