@@ -151,7 +151,7 @@ export const Product: FC<Props> = ({ product }) => {
 					<Slider data={products?.data} />
 				</div>
 				<Banner path="/images/banner6.png" />
-				<div className="mt-[50px] flex justify-between">
+				<div className="mt-[50px] flex justify-between gap-10">
 					<div className="flex flex-col gap-5">
 						<H2>{t("characteristics")}</H2>
 						<p>{product?.description}</p>
