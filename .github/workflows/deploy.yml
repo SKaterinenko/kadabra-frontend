@@ -21,7 +21,7 @@ jobs:
         run: docker build -t skaterinenko/kadabra-frontend:latest .
 
       - name: Push
-        run: docker push skaterinenko/kadabra-frontend:latest:latest
+        run: docker push skaterinenko/kadabra-frontend:latest
 
       - name: Deploy
         uses: appleboy/ssh-action@v1.0.3
